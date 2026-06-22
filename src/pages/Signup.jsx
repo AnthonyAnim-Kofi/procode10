@@ -45,7 +45,7 @@ export default function Signup() {
             }
         }
         setLoading(true);
-        const { error } = await signUp(email, password, { coding_experience: codingExperience });
+        const { error } = await signUp(email, password, { coding_experience: codingExperience, theme_preference: themePreference });
         if (error) {
             setError(error.message);
             setLoading(false);
