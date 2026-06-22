@@ -32,12 +32,12 @@ export function useUpdateProfile() {
         mutationFn: async (updates) => {
             if (!user)
                 throw new Error("Not authenticated");
+            // Upsert so a missing profile row never causes a 406 / no-rows error.
             const { data, error } = await supabase
                 .from("profiles")
-                .update(updates)
-                .eq("user_id", user.id)
+                .upsert({ user_id: user.id, ...updates }, { onConflict: "user_id" })
                 .select()
-                .single();
+                .maybeSingle();
             if (error)
                 throw error;
             return data;
