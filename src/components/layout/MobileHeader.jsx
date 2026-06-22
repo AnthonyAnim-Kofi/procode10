@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
-import { Home, Trophy, Target, ShoppingBag, Gem, Terminal } from "lucide-react";
+import { Home, Trophy, Target, ShoppingBag, Gem } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUserProfile } from "@/hooks/useUserProgress";
 import { HeartTimerPopover } from "@/components/HeartTimerPopover";
@@ -8,7 +8,6 @@ import { StreakPopover } from "@/components/StreakPopover";
 import { MobileMoreMenu } from "./MobileMoreMenu";
 const navItems = [
     { icon: Home, label: "Learn", path: "/learn" },
-    { icon: Terminal, label: "Playground", path: "/playground" },
     { icon: Trophy, label: "Ranks", path: "/leaderboard" },
     { icon: Target, label: "Quests", path: "/quests" },
     { icon: ShoppingBag, label: "Shop", path: "/shop" }

@@ -5,7 +5,7 @@
  */
 import { useLocation } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, } from "@/components/ui/sheet";
-import { MoreHorizontal, Users, Award, RotateCcw, Settings, Globe, LogOut, Gift, History, } from "lucide-react";
+import { MoreHorizontal, Users, Award, RotateCcw, Settings, Globe, LogOut, Gift, History, Terminal, } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import { useState } from "react";
 import { LogoutConfirmDialog } from "@/components/LogoutConfirmDialog";
 /** Navigation items shown in the "More" menu */
 const moreItems = [
+    { icon: Terminal, label: "Editor", path: "/playground" },
     { icon: Globe, label: "Languages", path: "/languages" },
     { icon: Users, label: "Social", path: "/social" },
     { icon: Gift, label: "Referrals", path: "/referral" },

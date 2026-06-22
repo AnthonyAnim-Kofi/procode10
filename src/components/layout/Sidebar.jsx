@@ -13,7 +13,7 @@ import { LogoutConfirmDialog } from "@/components/LogoutConfirmDialog";
 /** Primary navigation items shown at the top of the sidebar */
 const navItems = [
     { icon: Home, label: "Learn", path: "/learn" },
-    { icon: Terminal, label: "Playground", path: "/playground" },
+    { icon: Terminal, label: "Editor", path: "/playground" },
     { icon: Trophy, label: "Leaderboard", path: "/leaderboard" },
     { icon: Target, label: "Quests", path: "/quests" },
     { icon: ShoppingBag, label: "Shop", path: "/shop" },

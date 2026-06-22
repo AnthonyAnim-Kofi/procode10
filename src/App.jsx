@@ -46,8 +46,8 @@ const App = () => {
         return () => window.removeEventListener("unhandledrejection", handleRejection);
     }, []);
     return (<QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <ThemeProvider>
         <TooltipProvider>
           <Toaster />
           <Sonner />
@@ -100,8 +100,8 @@ const App = () => {
             </MobileChrome>
           </BrowserRouter>
         </TooltipProvider>
-      </AuthProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AuthProvider>
   </QueryClientProvider>);
 };
 export default App;
