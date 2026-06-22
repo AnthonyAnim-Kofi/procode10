@@ -1,5 +1,14 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
+import "@fontsource/urbanist/400.css";
+import "@fontsource/urbanist/500.css";
+import "@fontsource/urbanist/600.css";
+import "@fontsource/urbanist/700.css";
+import "@fontsource/urbanist/800.css";
+import "@fontsource/epilogue/400.css";
+import "@fontsource/epilogue/500.css";
+import "@fontsource/epilogue/600.css";
+import "@fontsource/epilogue/700.css";
 import "./index.css";
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {

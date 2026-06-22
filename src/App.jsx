@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/components/ThemeContext";
-import { ThemeParticles } from "@/components/ThemeParticles";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { MobileChrome } from "@/components/layout/MobileChrome";
@@ -48,7 +47,6 @@ const App = () => {
     }, []);
     return (<QueryClientProvider client={queryClient}>
     <ThemeProvider>
-      <ThemeParticles />
       <AuthProvider>
         <TooltipProvider>
           <Toaster />
