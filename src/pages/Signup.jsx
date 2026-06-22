@@ -142,6 +142,36 @@ export default function Signup() {
                             </div>
 
                             <div className="space-y-2">
+                                <Label>Appearance theme</Label>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {THEMES.map((t) => {
+                                        const active = themePreference === t.id;
+                                        return (
+                                            <button
+                                                key={t.id}
+                                                type="button"
+                                                onClick={() => setThemePreference(t.id)}
+                                                className={`relative rounded-lg border-2 p-2 text-left transition-all ${active ? "border-primary ring-2 ring-primary/30" : "border-border hover:border-primary/40"}`}
+                                            >
+                                                <div className="flex gap-1 mb-1.5">
+                                                    {t.swatches.map((c) => (
+                                                        <span key={c} className="h-4 flex-1 rounded-sm border border-black/5" style={{ background: c }} />
+                                                    ))}
+                                                </div>
+                                                <span className="text-xs font-semibold text-foreground">{t.name}</span>
+                                                {active && (
+                                                    <span className="absolute top-1.5 right-1.5 inline-flex items-center justify-center w-4 h-4 rounded-full bg-primary text-primary-foreground">
+                                                        <Check className="w-2.5 h-2.5" />
+                                                    </span>
+                                                )}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+
+                            <div className="space-y-2">
                                 <Label htmlFor="referralCode" className="text-muted-foreground font-normal">
                                     Referral code <span className="text-xs">(optional)</span>
                                 </Label>
