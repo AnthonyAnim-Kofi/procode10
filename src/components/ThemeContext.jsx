@@ -29,7 +29,7 @@ export function getWesternEasterSunday(year) {
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const { user } = useAuth?.() || { user: null };
+  const { user } = useAuth();
   const [themeId, setThemeIdState] = useState(() => {
     if (typeof window === 'undefined') return 'emerald';
     return window.localStorage.getItem(LOCAL_KEY) || 'emerald';
