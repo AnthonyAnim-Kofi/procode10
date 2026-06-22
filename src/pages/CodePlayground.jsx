@@ -691,7 +691,7 @@ export default function CodePlayground() {
         {/* Title */}
         <div className="flex items-center gap-2 shrink-0">
           <Terminal className="w-4 h-4 text-primary" />
-          <span className="text-white font-bold text-sm hidden sm:inline">Code Playground</span>
+          <span className="text-white font-bold text-sm hidden sm:inline">Editor</span>
         </div>
 
         <div className="w-px h-5 bg-white/10 shrink-0 hidden sm:block" />
