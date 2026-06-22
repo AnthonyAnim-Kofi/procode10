@@ -46,8 +46,8 @@ const App = () => {
         return () => window.removeEventListener("unhandledrejection", handleRejection);
     }, []);
     return (<QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <ThemeProvider>
         <TooltipProvider>
           <Toaster />
           <Sonner />
