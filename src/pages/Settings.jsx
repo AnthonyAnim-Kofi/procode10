@@ -125,20 +125,36 @@ export default function Settings() {
             </div>
 
             <div className="pt-4 border-t border-border mt-4">
-              <Label htmlFor="themeOverride" className="text-primary font-bold">Seasonal Theme Override</Label>
-              <p className="text-xs text-muted-foreground mb-3">Force a specific holiday theme to view the seasonal animations.</p>
-              <select 
-                id="themeOverride" 
-                className="w-full p-3 bg-background rounded-xl border border-border text-sm font-bold text-foreground focus:ring-2 focus:ring-primary outline-none transition-all"
-                value={overrideTheme || "auto"}
-                onChange={(e) => setOverrideTheme(e.target.value === "auto" ? null : e.target.value)}
-              >
-                <option value="auto">Auto (Calendar Date)</option>
-                <option value="theme-default">Default Theme</option>
-                {HOLIDAYS_FOR_SETTINGS.map(h => (
-                  <option key={h.name} value={h.name}>{h.name.replace('theme-', '').toUpperCase()}</option>
-                ))}
-              </select>
+              <Label className="text-primary font-bold">Appearance Theme</Label>
+              <p className="text-xs text-muted-foreground mb-3">Choose the colour palette used across the site.</p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {THEMES.map((t) => {
+                  const active = themeId === t.id;
+                  return (
+                    <button
+                      key={t.id}
+                      type="button"
+                      onClick={() => setThemeId(t.id)}
+                      className={cn(
+                        "group relative rounded-xl border-2 p-3 text-left transition-all",
+                        active ? "border-primary ring-2 ring-primary/30" : "border-border hover:border-primary/40"
+                      )}
+                    >
+                      <div className="flex gap-1 mb-2">
+                        {t.swatches.map((c) => (
+                          <span key={c} className="h-6 flex-1 rounded-md border border-black/5" style={{ background: c }} />
+                        ))}
+                      </div>
+                      <span className="text-xs font-semibold text-foreground">{t.name}</span>
+                      {active && (
+                        <span className="absolute top-2 right-2 inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-primary-foreground">
+                          <Check className="w-3 h-3" />
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </TabsContent>
