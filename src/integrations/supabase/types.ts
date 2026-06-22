@@ -465,6 +465,7 @@ export type Database = {
           streak_count: number
           streak_freeze_count: number
           streak_freeze_notice_seen_at: string | null
+          theme_preference: string
           tour_completed: boolean
           updated_at: string
           user_id: string
@@ -497,6 +498,7 @@ export type Database = {
           streak_count?: number
           streak_freeze_count?: number
           streak_freeze_notice_seen_at?: string | null
+          theme_preference?: string
           tour_completed?: boolean
           updated_at?: string
           user_id: string
@@ -529,6 +531,7 @@ export type Database = {
           streak_count?: number
           streak_freeze_count?: number
           streak_freeze_notice_seen_at?: string | null
+          theme_preference?: string
           tour_completed?: boolean
           updated_at?: string
           user_id?: string
