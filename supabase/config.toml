@@ -1,7 +1,1 @@
-project_id = "unzarsdejxnnfzxirmqn"
-
-[functions.run-code]
-verify_jwt = false
-
-[functions.code-playground]
-verify_jwt = false
+project_id = "btgyexpstsejyexhnjzx"
