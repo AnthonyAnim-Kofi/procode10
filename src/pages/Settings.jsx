@@ -16,7 +16,7 @@ export default function Settings() {
     const { toast } = useToast();
     const { data: profile, isLoading } = useUserProfile();
     const updateProfile = useUpdateProfile();
-    const { overrideTheme, setOverrideTheme, HOLIDAYS_FOR_SETTINGS } = useTheme();
+    const { themeId, setThemeId } = useTheme();
     const [displayName, setDisplayName] = useState("");
     const [selectedAvatar, setSelectedAvatar] = useState(null);
     const [avatarCategory, setAvatarCategory] = useState("all");
