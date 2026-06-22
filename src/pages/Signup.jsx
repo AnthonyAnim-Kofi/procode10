@@ -19,6 +19,7 @@ export default function Signup() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [referralCode, setReferralCode] = useState(searchParams.get("ref") ?? "");
     const [codingExperience, setCodingExperience] = useState("beginner");
+    const [themePreference, setThemePreference] = useState("emerald");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
