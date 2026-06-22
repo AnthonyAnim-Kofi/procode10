@@ -100,8 +100,8 @@ const App = () => {
             </MobileChrome>
           </BrowserRouter>
         </TooltipProvider>
-      </AuthProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </AuthProvider>
   </QueryClientProvider>);
 };
 export default App;
