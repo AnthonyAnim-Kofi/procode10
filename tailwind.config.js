@@ -12,7 +12,11 @@ export default {
     },
     extend: {
       fontFamily: {
-        nunito: ["Nunito", "system-ui", "sans-serif"],
+        // Kept "nunito" alias mapped to new body font so legacy classes keep working.
+        nunito: ["Epilogue", "system-ui", "sans-serif"],
+        sans: ["Epilogue", "system-ui", "sans-serif"],
+        display: ["Urbanist", "system-ui", "sans-serif"],
+        body: ["Epilogue", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -107,13 +111,6 @@ export default {
         "slide-in-up": "slide-in-up 0.4s ease-out",
         "scale-in": "scale-in 0.2s ease-out",
         shimmer: "shimmer 2s linear infinite",
-      },
-      boxShadow: {
-        "button-primary": "0 4px 0 hsl(40, 100%, 35%)",
-        "button-secondary": "0 4px 0 hsl(199, 89%, 35%)",
-        "button-outline": "0 4px 0 hsl(220, 13%, 80%)",
-        "card-elevated": "0 4px 0 hsl(220, 13%, 85%)",
-        "lesson-bubble": "0 6px 0 hsl(220, 13%, 80%)",
       },
     },
   },

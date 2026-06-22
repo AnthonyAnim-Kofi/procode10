@@ -1,468 +1,226 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* =========================================================================
+   Emerald Prestige — professional, higher-education aesthetic.
+   Deep emerald + brushed gold accents, cream surfaces, refined typography.
+   Seasonal/holiday themes are intentionally retired (no auto color shifts).
+   ========================================================================= */
+
 @layer base {
   :root {
-    /* CodeBear Yellow-themed color palette (Base) */
-    --background: 0 0% 98%;
-    --foreground: 220 20% 15%; /* Slightly softer than pure black */
+    --background: 46 38% 97%;        /* warm cream */
+    --foreground: 160 30% 10%;       /* deep emerald-black */
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 15%;
+    --card-foreground: 160 30% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 15%;
+    --popover-foreground: 160 30% 10%;
 
-    /* Signature CodeBear Yellow */
-    --primary: 45 100% 50%;
-    --primary-foreground: 30 60% 10%;
+    /* Deep emerald primary */
+    --primary: 160 84% 18%;
+    --primary-foreground: 46 56% 96%;
 
-    /* Sky Blue Accent */
-    --secondary: 199 89% 48%;
-    --secondary-foreground: 0 0% 100%;
+    /* Brushed gold secondary */
+    --secondary: 42 55% 52%;
+    --secondary-foreground: 160 40% 12%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 46 22% 93%;
+    --muted-foreground: 160 12% 38%;
 
-    /* Orange for streaks/fire */
-    --accent: 28 90% 50%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 42 55% 52%;
+    --accent-foreground: 160 40% 12%;
 
-    /* Red for hearts */
-    --destructive: 350 80% 55%;
+    --destructive: 0 65% 42%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Purple for premium/special */
-    --premium: 270 60% 55%;
-    --premium-foreground: 0 0% 100%;
+    --premium: 160 60% 25%;
+    --premium-foreground: 46 56% 96%;
 
-    /* Golden for XP/achievements */
-    --golden: 42 90% 55%;
-    --golden-foreground: 30 60% 15%;
+    --golden: 42 60% 48%;
+    --golden-foreground: 160 40% 12%;
 
-    --border: 220 13% 90%;
-    --input: 220 13% 90%;
-    --ring: 45 100% 50%;
+    --border: 160 12% 86%;
+    --input: 160 12% 86%;
+    --ring: 160 84% 22%;
 
-    --radius: 1rem;
+    --radius: 0.625rem;
 
-    /* Sidebar */
-    --sidebar-background: 220 20% 12%;
-    --sidebar-foreground: 220 14% 96%;
-    --sidebar-primary: 45 100% 50%;
-    --sidebar-primary-foreground: 30 60% 10%;
-    --sidebar-accent: 220 15% 18%;
-    --sidebar-accent-foreground: 220 14% 96%;
-    --sidebar-border: 220 15% 20%;
-    --sidebar-ring: 45 100% 50%;
+    /* Sidebar — deep emerald on cream */
+    --sidebar-background: 160 40% 10%;
+    --sidebar-foreground: 46 30% 92%;
+    --sidebar-primary: 42 55% 52%;
+    --sidebar-primary-foreground: 160 40% 10%;
+    --sidebar-accent: 160 30% 16%;
+    --sidebar-accent-foreground: 46 30% 92%;
+    --sidebar-border: 160 25% 18%;
+    --sidebar-ring: 42 55% 52%;
 
-    /* Custom gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(45, 100%, 50%), hsl(35, 90%, 45%));
-    --gradient-secondary: linear-gradient(135deg, hsl(199, 89%, 48%), hsl(210, 90%, 40%));
-    --gradient-golden: linear-gradient(135deg, hsl(45, 100%, 55%), hsl(35, 90%, 40%));
-    --gradient-premium: linear-gradient(135deg, hsl(270, 60%, 55%), hsl(280, 70%, 45%));
-    --gradient-hero: linear-gradient(180deg, hsl(45, 100%, 95%) 0%, hsl(0, 0%, 100%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(160, 84%, 18%), hsl(160, 60%, 28%));
+    --gradient-secondary: linear-gradient(135deg, hsl(42, 55%, 52%), hsl(38, 60%, 44%));
+    --gradient-golden: linear-gradient(135deg, hsl(42, 60%, 56%), hsl(38, 55%, 42%));
+    --gradient-premium: linear-gradient(135deg, hsl(160, 60%, 25%), hsl(160, 84%, 18%));
+    --gradient-hero: linear-gradient(180deg, hsl(46, 38%, 97%) 0%, hsl(0, 0%, 100%) 100%);
   }
 
   .dark {
-    --background: 220 20% 8%;
-    --foreground: 220 14% 92%;
-
-    --card: 220 20% 12%;
-    --card-foreground: 220 14% 92%;
-
-    --popover: 220 20% 12%;
-    --popover-foreground: 220 14% 92%;
-
-    --primary: 45 100% 55%;
-    --primary-foreground: 30 60% 10%;
-
-    --secondary: 199 89% 55%;
-    --secondary-foreground: 0 0% 10%;
-
-    --muted: 220 15% 18%;
-    --muted-foreground: 220 10% 65%;
-
-    --accent: 28 90% 55%;
-    --accent-foreground: 0 0% 10%;
-
-    --destructive: 350 80% 60%;
+    --background: 160 30% 6%;
+    --foreground: 46 30% 92%;
+    --card: 160 30% 10%;
+    --card-foreground: 46 30% 92%;
+    --popover: 160 30% 10%;
+    --popover-foreground: 46 30% 92%;
+    --primary: 42 55% 56%;
+    --primary-foreground: 160 40% 10%;
+    --secondary: 160 60% 35%;
+    --secondary-foreground: 46 30% 96%;
+    --muted: 160 20% 14%;
+    --muted-foreground: 46 14% 65%;
+    --accent: 42 55% 56%;
+    --accent-foreground: 160 40% 10%;
+    --destructive: 0 65% 50%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 45 100% 55%;
-
-    --gradient-hero: linear-gradient(180deg, hsl(220, 20%, 12%) 0%, hsl(220, 20%, 8%) 100%);
+    --border: 160 20% 18%;
+    --input: 160 20% 18%;
+    --ring: 42 55% 56%;
+    --gradient-hero: linear-gradient(180deg, hsl(160, 30%, 10%) 0%, hsl(160, 30%, 6%) 100%);
   }
 
-  /* --- PREMIUM SEASONAL THEMES --- */
-  
-  /* Christmas / Winter (Winter Night: Deep Red/Green with Gold) */
-  .theme-christmas {
-    --background: 350 60% 12%; 
-    --foreground: 45 100% 92%;
-    --card: 350 60% 18%;
-    --card-foreground: 45 100% 92%;
-    --muted: 350 40% 22%;
-    --muted-foreground: 350 20% 70%;
-    --border: 350 40% 25%;
-    --primary: 45 100% 50%; /* Gold primary */
-    --primary-foreground: 350 60% 10%;
-    --secondary: 150 60% 45%; /* Emerald green */
-    --gradient-primary: linear-gradient(135deg, hsl(350, 75% ,42%), hsl(150, 60%, 30%));
-  }
-
-  /* Valentine's (Rose Gold, Blush & Ruby) */
-  .theme-valentine {
-    --primary: 340 70% 55%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 15 60% 75%; /* Rose gold accent */
-    --gradient-primary: linear-gradient(135deg, hsl(340, 70%, 55%), hsl(330, 80%, 45%));
-  }
-
-  /* St. Patrick's (Emerald, Jade & Brushed Gold) */
-  .theme-stpatricks {
-    --primary: 150 80% 35%;
-    --primary-foreground: 45 100% 90%;
-    --secondary: 42 90% 55%;
-    --gradient-primary: linear-gradient(135deg, hsl(150, 80%, 35%), hsl(160, 90%, 25%));
-  }
-
-  /* Easter / Spring (Elegant Muted Pastels: Sage & Lavender) */
-  .theme-easter {
-    --primary: 270 40% 65%;
-    --primary-foreground: 270 50% 15%;
-    --secondary: 150 30% 65%;
-    --gradient-primary: linear-gradient(135deg, hsl(270, 40%, 65%), hsl(290, 40%, 55%));
-  }
-
-  /* Earth Day (Ocean Deep & Lush Forest) */
-  .theme-earth {
-    --primary: 160 60% 35%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 70% 40%;
-    --gradient-primary: linear-gradient(135deg, hsl(160, 60%, 35%), hsl(180, 70%, 30%));
-  }
-
-  /* Summer (Golden Hour Orange & Deep Turquoise) */
-  .theme-summer {
-    --primary: 30 95% 55%;
-    --primary-foreground: 30 70% 15%;
-    --secondary: 190 85% 45%;
-    --gradient-primary: linear-gradient(135deg, hsl(30, 95%, 55%), hsl(15, 90%, 50%));
-  }
-
-  /* Halloween (Midnight Violet & Glowing Pumpkin) */
-  .theme-halloween {
-    --primary: 25 95% 55%;
-    --primary-foreground: 25 70% 10%;
-    --secondary: 275 60% 45%;
-    --gradient-primary: linear-gradient(135deg, hsl(25, 95%, 55%), hsl(15, 90%, 45%));
-  }
-  .dark .theme-halloween {
-    --background: 275 30% 6%;
-    --card: 275 25% 10%;
-    --border: 275 25% 15%;
-  }
-
-  /* Autumn / Thanksgiving (Burnt Amber & Mahogany) */
-  .theme-autumn {
-    --primary: 25 85% 55%;
-    --primary-foreground: 40 80% 15%;
-    --secondary: 40 75% 55%;
-    --gradient-primary: linear-gradient(135deg, hsl(25, 85%, 55%), hsl(15, 80%, 45%));
-  }
-
-  /* Diwali (Rich Plum & Marigold Glow) */
-  .theme-diwali {
-    --primary: 45 95% 55%;
-    --primary-foreground: 330 70% 15%;
-    --secondary: 330 65% 55%;
-    --gradient-primary: linear-gradient(135deg, hsl(45, 95%, 55%), hsl(35, 90%, 50%));
-  }
-  .dark .theme-diwali {
-    --background: 330 25% 10%;
-    --card: 330 20% 14%;
-  }
-
-  /* Lunar New Year (Imperial Red & Silk Gold) */
-  .theme-lunar {
-    --primary: 355 80% 45%;
-    --primary-foreground: 45 90% 85%;
-    --secondary: 45 95% 50%;
-    --gradient-primary: linear-gradient(135deg, hsl(355, 80%, 45%), hsl(345, 90%, 35%));
-  }
-
-  /* Independence Day (Valor Red, White & Liberty Blue) */
-  .theme-independence {
-    --primary: 0 85% 50%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 220 90% 45%;
-    --gradient-primary: linear-gradient(135deg, hsl(0, 85%, 50%), hsl(220, 90%, 45%));
-  }
-
-  /* Anniversary (Royal Gold & Diamond Platinum) */
-  .theme-anniversary {
-    --primary: 45 90% 50%;
-    --primary-foreground: 45 10% 10%;
-    --secondary: 210 15% 85%;
-    --gradient-primary: linear-gradient(135deg, hsl(45, 90%, 50%), hsl(35, 80%, 40%));
-  }
-
-  /* Ramadan / Eid (Midnight Crescent Blue & Emerald Gold) */
-  .theme-ramadan {
-    --primary: 215 65% 50%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 45 95% 55%;
-    --gradient-primary: linear-gradient(135deg, hsl(215, 65%, 50%), hsl(225, 70%, 40%));
-  }
-  /* New Year (Champagne Gold, Onyx & Silver) */
-  .theme-newyear {
-    --primary: 40 70% 65%; /* Champagne */
-    --primary-foreground: 220 20% 10%;
-    --secondary: 210 15% 75%; /* Silver */
-    --gradient-primary: linear-gradient(135deg, hsl(40, 70%, 65%), hsl(35, 60%, 50%));
-  }
-  .dark .theme-newyear {
-    --background: 220 20% 5%;
-    --card: 220 20% 9%;
-  }
+  /* Legacy seasonal classes intentionally become no-ops.
+     The ThemeProvider may still toggle them, but they no longer change colors. */
+  .theme-default,
+  .theme-christmas,
+  .theme-valentine,
+  .theme-stpatricks,
+  .theme-easter,
+  .theme-earth,
+  .theme-summer,
+  .theme-halloween,
+  .theme-autumn,
+  .theme-diwali,
+  .theme-lunar,
+  .theme-independence,
+  .theme-anniversary,
+  .theme-ramadan,
+  .theme-newyear { /* no-op */ }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
 
   body {
-    @apply bg-background text-foreground font-nunito antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Epilogue', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
   }
 
   h1, h2, h3, h4, h5, h6 {
+    font-family: 'Urbanist', system-ui, sans-serif;
     @apply font-bold tracking-tight;
+    letter-spacing: -0.015em;
   }
 }
 
 @layer components {
-  .mobile-attendance-bg {
-    display: none;
-  }
-
+  .mobile-attendance-bg { display: none; }
   .mobile-attendance-surface {
     position: relative;
     z-index: 1;
     min-height: 100dvh;
     padding: 0;
   }
-
-  .mobile-attendance-container {
-    width: 100%;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .mobile-attendance-card {
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-    overflow: visible;
-    min-height: 100dvh;
-  }
-
+  .mobile-attendance-container { width: 100%; max-width: 100%; margin-left: auto; margin-right: auto; }
+  .mobile-attendance-card { background: transparent; border: 0; border-radius: 0; box-shadow: none; overflow: visible; min-height: 100dvh; }
   @media (min-width: 1024px) {
-    .mobile-attendance-surface {
-      min-height: auto;
-    }
-    .mobile-attendance-container {
-      max-width: none;
-      margin: 0;
-    }
-    .mobile-attendance-card {
-      min-height: auto;
-    }
+    .mobile-attendance-surface { min-height: auto; }
+    .mobile-attendance-container { max-width: none; margin: 0; }
+    .mobile-attendance-card { min-height: auto; }
   }
 
-  /* Premium Buttons: Softer shadows, smoother interactions */
+  /* Refined, restrained button shadows — no more chunky "stacked" look. */
   .btn-primary-shadow {
-    box-shadow: 0 4px 0 hsl(var(--primary) / 0.4);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 2px hsl(var(--primary) / 0.18);
+    transition: all 0.2s ease;
   }
-
-  .btn-primary-shadow:active {
-    box-shadow: 0 1px 0 hsl(var(--primary) / 0.4);
-    transform: translateY(3px);
-  }
+  .btn-primary-shadow:hover { box-shadow: 0 2px 6px hsl(var(--primary) / 0.22); }
+  .btn-primary-shadow:active { box-shadow: 0 1px 1px hsl(var(--primary) / 0.16); }
 
   .btn-secondary-shadow {
-    box-shadow: 0 4px 0 hsl(var(--secondary) / 0.4);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 2px hsl(var(--secondary) / 0.18);
+    transition: all 0.2s ease;
   }
+  .btn-secondary-shadow:hover { box-shadow: 0 2px 6px hsl(var(--secondary) / 0.22); }
+  .btn-secondary-shadow:active { box-shadow: 0 1px 1px hsl(var(--secondary) / 0.16); }
 
-  .btn-secondary-shadow:active {
-    box-shadow: 0 1px 0 hsl(var(--secondary) / 0.4);
-    transform: translateY(3px);
-  }
+  .btn-destructive-shadow { box-shadow: 0 1px 2px hsl(var(--destructive) / 0.18); transition: all 0.2s ease; }
+  .btn-outline-shadow { box-shadow: 0 1px 2px hsl(var(--foreground) / 0.06); transition: all 0.2s ease; }
 
-  /* Social Premium Buttons (Style from mockup) */
   .social-card-btn {
-    @apply flex items-center justify-center font-bold px-4 py-2 rounded-xl transition-all duration-200 border-2;
-    background: white;
-    box-shadow: 0 4px 0 hsl(var(--muted-foreground) / 0.2);
-    border-color: hsl(var(--muted) / 0.8);
+    @apply flex items-center justify-center font-semibold px-4 py-2 rounded-lg transition-all duration-200 border;
+    background: hsl(var(--card));
+    border-color: hsl(var(--border));
     color: hsl(var(--foreground));
+    box-shadow: 0 1px 2px hsl(var(--foreground) / 0.04);
   }
-
-  .social-card-btn:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 hsl(var(--muted-foreground) / 0.2);
-  }
+  .social-card-btn:hover { box-shadow: 0 2px 6px hsl(var(--foreground) / 0.08); }
 
   .social-card-container {
-    @apply flex items-center justify-between p-4 bg-card rounded-2xl border border-border/60 transition-all duration-200;
+    @apply flex items-center justify-between p-4 bg-card rounded-xl border border-border/60 transition-all duration-200;
   }
 
   .card-elevated {
-    box-shadow: 0 8px 30px hsl(var(--foreground) / 0.04), 
-                0 4px 0 hsl(var(--border));
+    box-shadow: 0 1px 2px hsl(var(--foreground) / 0.04),
+                0 8px 24px -12px hsl(var(--foreground) / 0.10);
+    border: 1px solid hsl(var(--border));
   }
 
   .lesson-bubble {
     @apply relative flex items-center justify-center w-16 h-16 rounded-full cursor-pointer transition-all duration-300;
-    box-shadow: 0 6px 0 hsl(var(--border));
+    box-shadow: 0 2px 6px hsl(var(--foreground) / 0.08);
   }
-
-  .lesson-bubble:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 9px 0 hsl(var(--border));
-  }
-
-  .lesson-bubble:active {
-    transform: translateY(4px);
-    box-shadow: 0 2px 0 hsl(var(--border));
-  }
-
-  .lesson-bubble-complete {
-    @apply bg-primary text-primary-foreground;
-    box-shadow: 0 6px 0 hsl(var(--primary) / 0.4);
-  }
-
+  .lesson-bubble:hover { transform: translateY(-2px); box-shadow: 0 4px 10px hsl(var(--foreground) / 0.12); }
+  .lesson-bubble:active { transform: translateY(1px); }
+  .lesson-bubble-complete { @apply bg-primary text-primary-foreground; }
   .lesson-bubble-current {
-    @apply bg-primary text-primary-foreground animate-pulse-gentle;
-    box-shadow: 0 6px 0 hsl(var(--primary) / 0.4),
-                0 0 20px hsl(var(--primary) / 0.3);
+    @apply bg-primary text-primary-foreground;
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.35), 0 0 0 4px hsl(var(--primary) / 0.12);
   }
+  .lesson-bubble-locked { @apply bg-muted text-muted-foreground opacity-80; }
 
-  .lesson-bubble-locked {
-    @apply bg-muted text-muted-foreground opacity-80;
-  }
-
-  .progress-bar-container {
-    @apply h-4 bg-muted rounded-full overflow-hidden shadow-inner;
-  }
-
+  .progress-bar-container { @apply h-2 bg-muted rounded-full overflow-hidden; }
   .progress-bar-fill {
-    @apply h-full bg-gradient-to-r rounded-full transition-all duration-700 ease-out;
+    @apply h-full rounded-full transition-all duration-700 ease-out;
     background-image: var(--gradient-primary);
   }
 
-  .xp-badge {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 bg-golden/15 text-golden rounded-full text-sm font-bold border border-golden/20 backdrop-blur-sm;
-  }
-
-  .streak-badge {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 bg-accent/15 text-accent rounded-full text-sm font-bold border border-accent/20 backdrop-blur-sm;
-  }
-
-  .hearts-badge {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 bg-destructive/15 text-destructive rounded-full text-sm font-bold border border-destructive/20 backdrop-blur-sm;
-  }
+  .xp-badge { @apply inline-flex items-center gap-1.5 px-3 py-1 bg-golden/15 text-golden rounded-full text-sm font-semibold border border-golden/20; }
+  .streak-badge { @apply inline-flex items-center gap-1.5 px-3 py-1 bg-accent/15 text-accent-foreground rounded-full text-sm font-semibold border border-accent/20; }
+  .hearts-badge { @apply inline-flex items-center gap-1.5 px-3 py-1 bg-destructive/10 text-destructive rounded-full text-sm font-semibold border border-destructive/20; }
 }
 
 @layer utilities {
-  .text-gradient-primary {
-    @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-primary);
-  }
+  .text-gradient-primary { @apply bg-clip-text text-transparent; background-image: var(--gradient-primary); }
+  .text-gradient-golden { @apply bg-clip-text text-transparent; background-image: var(--gradient-golden); }
+  .bg-gradient-hero { background: var(--gradient-hero); }
 
-  .text-gradient-golden {
-    @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-golden);
-  }
+  .animate-bounce-gentle { animation: bounce-gentle 3s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+  .animate-pulse-gentle { animation: pulse-gentle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+  .animate-float { animation: float 6s ease-in-out infinite; }
 
-  .bg-gradient-hero {
-    background: var(--gradient-hero);
-  }
+  @keyframes bounce-gentle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  @keyframes pulse-gentle { 0%, 100% { opacity: 1; } 50% { opacity: 0.9; } }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
-  /* --- REFINED ANIMATIONS --- */
-  .animate-bounce-gentle {
-    animation: bounce-gentle 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  }
-
-  .animate-pulse-gentle {
-    animation: pulse-gentle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  .animate-float {
-    animation: float 4s ease-in-out infinite;
-  }
-
-  @keyframes bounce-gentle {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-  }
-
-  @keyframes pulse-gentle {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.85; transform: scale(0.98); }
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(1.5deg); }
-  }
-
-  /* --- SMOOTHER PARTICLE EFFECTS --- */
-  .snow-flake {
-    position: absolute;
-    border-radius: 50%;
-    background: white;
-    pointer-events: none;
-    z-index: 0;
-    filter: blur(1px); /* Adds depth of field */
-  }
-
-  @keyframes snow-fall {
-    0% { transform: translateY(-10vh) translateX(0) scale(1); opacity: 0.8; }
-    50% { transform: translateY(50vh) translateX(20px) scale(0.9); opacity: 0.5; }
-    100% { transform: translateY(110vh) translateX(-20px) scale(1); opacity: 0; }
-  }
+  /* Particle keyframes retained so legacy components don't crash, but no themes trigger them. */
+  .snow-flake { position: absolute; border-radius: 50%; background: white; pointer-events: none; z-index: 0; }
+  @keyframes snow-fall { 0% { transform: translateY(-10vh); opacity: 0.8; } 100% { transform: translateY(110vh); opacity: 0; } }
   .particle-snow-fall { animation: snow-fall linear infinite; }
-
-  @keyframes fall {
-    0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.9; }
-    90% { opacity: 0.9; }
-    100% { transform: translateY(110vh) translateX(40px) rotate(360deg); opacity: 0; }
-  }
+  @keyframes fall { 0% { transform: translateY(-10vh); opacity: 0; } 100% { transform: translateY(110vh); opacity: 0; } }
   .particle-fall { animation: fall linear infinite; }
-
-  @keyframes float-up {
-    0% { transform: translateY(10vh) translateX(0) scale(0.5); opacity: 0; }
-    20% { opacity: 0.8; }
-    80% { opacity: 0.8; }
-    100% { transform: translateY(-110vh) translateX(-40px) scale(1.1) rotate(45deg); opacity: 0; }
-  }
+  @keyframes float-up { 0% { transform: translateY(10vh); opacity: 0; } 100% { transform: translateY(-110vh); opacity: 0; } }
   .particle-float-up { animation: float-up linear infinite; }
-
-  @keyframes twinkle {
-    0%, 100% { transform: scale(0.9); opacity: 0.3; }
-    50% { transform: scale(1.2); opacity: 0.9; filter: drop-shadow(0 0 4px currentColor); }
-  }
+  @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.9; } }
   .particle-twinkle { animation: twinkle 3s ease-in-out infinite; }
 }
