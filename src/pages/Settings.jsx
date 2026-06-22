@@ -8,7 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { useUserProfile, useUpdateProfile } from "@/hooks/useUserProgress";
-import { useTheme } from "@/components/ThemeContext";
+import { useTheme, THEMES } from "@/components/ThemeContext";
 import { AVATARS, AVATAR_CATEGORIES } from "@/data/avatars";
 import { useToast } from "@/hooks/use-toast";
 export default function Settings() {
