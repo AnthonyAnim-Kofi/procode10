@@ -1,8 +1,7 @@
 /**
  * MobileMoreMenu – Bottom sheet menu for mobile navigation overflow items.
- * Contains links to Languages, Social, Achievements, Practice, and Settings.
- * Includes a logout button with confirmation dialog.
  */
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, } from "@/components/ui/sheet";
 import { MoreHorizontal, Users, Award, RotateCcw, Settings, Globe, LogOut, Gift, History, Terminal, } from "lucide-react";
@@ -39,6 +38,11 @@ export function MobileMoreMenu() {
         navigate(path);
         setOpen(false);
     };
+    useEffect(() => {
+        const openHandler = () => setOpen(true);
+        window.addEventListener("open-mobile-more", openHandler);
+        return () => window.removeEventListener("open-mobile-more", openHandler);
+    }, []);
     return (<>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
