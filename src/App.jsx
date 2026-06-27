@@ -10,6 +10,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { MobileChrome } from "@/components/layout/MobileChrome";
 import { useDeviceNotifications } from "@/hooks/useDeviceNotifications";
+import { SplashScreen } from "@/components/SplashScreen";
 import { toast } from "sonner";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
