@@ -33,7 +33,12 @@ export function UnitBanner({
           {unitId && <UnitNotes unitId={unitId} isAccessible={isActive || (completedLessons > 0)}/>}
           
           {isActive && currentLessonId && (
-            <Button variant="golden" size="sm" className="shadow-none shrink-0" asChild>
+            <Button
+              variant="golden"
+              size="sm"
+              className="shrink-0 shadow-[0_8px_20px_-4px_rgba(0,0,0,0.45),0_2px_0_rgba(0,0,0,0.18)] ring-1 ring-white/40 hover:translate-y-[-1px] active:translate-y-[1px] transition-transform"
+              asChild
+            >
               <Link to={`/lesson/${String(currentLessonId)}`}>
                 <BookOpen className="w-4 h-4 sm:w-5 sm:h-5"/>
                 <span className="ml-1 sm:ml-2">Continue</span>

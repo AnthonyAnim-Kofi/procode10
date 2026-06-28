@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNotifications } from "./useNotifications";
-const REGEN_INTERVAL_MS = 50 * 60 * 1000; // 50 minutes in milliseconds
+const REGEN_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes — full refill in ~25 minutes
 const MAX_HEARTS = 5;
 export function useHeartRegeneration(currentHearts, regenStartedAt) {
     const { user } = useAuth();
