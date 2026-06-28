@@ -38,7 +38,13 @@ export function UnitNotes({ unitId, isAccessible }) {
         })}
     </div>);
     return (<>
-      <Button variant="outline" size="icon" className="bg-white/20 border-white/30 hover:bg-white/30 text-white" onClick={handleOpen} title="View unit notes">
+      <Button
+        variant="outline"
+        size="icon"
+        className="bg-white/25 border-white/40 hover:bg-white/35 text-white shadow-[0_8px_20px_-4px_rgba(0,0,0,0.45),0_2px_0_rgba(0,0,0,0.18)] ring-1 ring-white/30 hover:translate-y-[-1px] active:translate-y-[1px] transition-transform"
+        onClick={handleOpen}
+        title="View unit notes"
+      >
         <BookOpen className="w-5 h-5"/>
       </Button>
 

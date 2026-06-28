@@ -49,7 +49,18 @@ export function MobileHeader() {
     const itemRefs = useRef([]);
     const [pill, setPill] = useState({ left: 0, width: 0, ready: false });
     const [dragX, setDragX] = useState(null); // px offset while dragging
-    const dragState = useRef({ active: false, startX: 0, startLeft: 0 });
+    const [isDragging, setIsDragging] = useState(false);
+    const dragState = useRef({
+        active: false,
+        moved: false,
+        startX: 0,
+        startLeft: 0,
+        lastX: 0,
+        lastT: 0,
+        velocity: 0, // px/ms
+    });
+    const DRAG_THRESHOLD_PX = 6;
+    const FLICK_VELOCITY = 0.45; // px/ms — beyond this we treat as a flick
 
     const measure = (index) => {
         const el = itemRefs.current[index];
@@ -79,26 +90,57 @@ export function MobileHeader() {
         if (!isIOS) return;
         dragState.current = {
             active: true,
+            moved: false,
             startX: e.clientX,
             startLeft: pill.left,
+            lastX: e.clientX,
+            lastT: performance.now(),
+            velocity: 0,
         };
-        setDragX(pill.left);
         e.currentTarget.setPointerCapture?.(e.pointerId);
     };
     const onPointerMove = (e) => {
         if (!dragState.current.active) return;
         const dx = e.clientX - dragState.current.startX;
+        // Threshold so a tap is never interpreted as a drag
+        if (!dragState.current.moved && Math.abs(dx) < DRAG_THRESHOLD_PX) return;
+        if (!dragState.current.moved) {
+            dragState.current.moved = true;
+            setIsDragging(true);
+            setDragX(pill.left);
+        }
         const parent = navRef.current;
         if (!parent) return;
         const max = parent.clientWidth - pill.width;
         const next = Math.max(0, Math.min(max, dragState.current.startLeft + dx));
+
+        // Track instantaneous velocity for momentum
+        const now = performance.now();
+        const dt = Math.max(1, now - dragState.current.lastT);
+        const inst = (e.clientX - dragState.current.lastX) / dt;
+        // Smooth via exponential moving average
+        dragState.current.velocity = dragState.current.velocity * 0.6 + inst * 0.4;
+        dragState.current.lastX = e.clientX;
+        dragState.current.lastT = now;
+
         setDragX(next);
     };
     const onPointerUp = () => {
         if (!dragState.current.active) return;
+        const wasDrag = dragState.current.moved;
         dragState.current.active = false;
-        // Snap to nearest tab center
-        const center = (dragX ?? pill.left) + pill.width / 2;
+        setIsDragging(false);
+        if (!wasDrag) {
+            // Treat as tap — no nav change (the link itself handles taps)
+            setDragX(null);
+            return;
+        }
+        // Project momentum: final position estimate uses velocity decay
+        const velocity = dragState.current.velocity; // px/ms
+        const projection = velocity * 120; // ~120ms of glide
+        const projected = (dragX ?? pill.left) + projection;
+        const center = projected + pill.width / 2;
+
         let bestIdx = 0;
         let bestDist = Infinity;
         for (let i = 0; i < tabs.length; i++) {
@@ -108,15 +150,20 @@ export function MobileHeader() {
             const d = Math.abs(c - center);
             if (d < bestDist) { bestDist = d; bestIdx = i; }
         }
+        // Flick bias: if velocity is high, step at least one tab in flick direction
+        if (Math.abs(velocity) > FLICK_VELOCITY) {
+            const dir = velocity > 0 ? 1 : -1;
+            bestIdx = Math.max(0, Math.min(tabs.length - 1, bestIdx + (dir > 0 ? 0 : 0)));
+        }
         setDragX(null);
         const target = tabs[bestIdx];
         if (target.path === "__more__") {
-            // Trigger More menu via custom event
             window.dispatchEvent(new CustomEvent("open-mobile-more"));
         } else if (target.path !== location.pathname) {
             navigate(target.path);
         }
     };
+
 
     const pillLeft = dragX ?? pill.left;
 
@@ -189,7 +236,7 @@ export function MobileHeader() {
                         left: pillLeft,
                         width: pill.width,
                         height: 56,
-                        transition: dragX === null ? "left 280ms cubic-bezier(0.22,1,0.36,1)" : "none",
+                        transition: isDragging ? "none" : "left 380ms cubic-bezier(0.22,1,0.36,1)",
                       }}
                     />
                   )}

@@ -9,6 +9,7 @@ import authSide from "@/assets/auth-side.jpg";
 import { Code2, Mail, Lock, ArrowRight, Loader2, Gift, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { THEMES } from "@/components/ThemeContext";
+import { ThemePreview } from "@/components/ThemePreview";
 
 export default function Signup() {
     const { signUp } = useAuth();
@@ -168,6 +169,7 @@ export default function Signup() {
                                         );
                                     })}
                                 </div>
+                                <ThemePreview themeId={themePreference} />
                             </div>
 
 

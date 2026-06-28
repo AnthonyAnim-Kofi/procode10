@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { useUserProfile, useUpdateProfile } from "@/hooks/useUserProgress";
 import { useTheme, THEMES } from "@/components/ThemeContext";
+import { ThemePreview } from "@/components/ThemePreview";
 import { AVATARS, AVATAR_CATEGORIES } from "@/data/avatars";
 import { useToast } from "@/hooks/use-toast";
 export default function Settings() {
@@ -154,6 +155,10 @@ export default function Settings() {
                     </button>
                   );
                 })}
+              </div>
+              <div className="mt-4">
+                <p className="text-xs text-muted-foreground mb-2">Live preview</p>
+                <ThemePreview themeId={themeId} />
               </div>
             </div>
           </div>
