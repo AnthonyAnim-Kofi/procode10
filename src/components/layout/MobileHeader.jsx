@@ -236,7 +236,7 @@ export function MobileHeader() {
                         left: pillLeft,
                         width: pill.width,
                         height: 56,
-                        transition: dragX === null ? "left 280ms cubic-bezier(0.22,1,0.36,1)" : "none",
+                        transition: isDragging ? "none" : "left 380ms cubic-bezier(0.22,1,0.36,1)",
                       }}
                     />
                   )}
