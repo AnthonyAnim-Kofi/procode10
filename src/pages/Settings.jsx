@@ -216,6 +216,41 @@ export default function Settings() {
           </div>
         </TabsContent>
 
+        {/* Sounds Tab */}
+        <TabsContent value="sounds" className="space-y-6">
+          <div className="p-6 bg-card rounded-2xl border border-border space-y-2">
+            <div className="pb-2 border-b border-border">
+              <p className="font-bold text-foreground">Sound Effects</p>
+              <p className="text-sm text-muted-foreground">Mute or enable individual sounds. Stored on this device.</p>
+            </div>
+            {SOUND_TOGGLES.map(({ key, label, description, Icon }, idx) => (
+              <div
+                key={key}
+                className={cn(
+                  "flex items-center justify-between py-3",
+                  idx > 0 && "border-t border-border"
+                )}
+              >
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 inline-flex items-center justify-center w-9 h-9 rounded-lg bg-primary/10 text-primary">
+                    <Icon className="w-4 h-4" />
+                  </span>
+                  <div>
+                    <p className="font-semibold text-foreground">{label}</p>
+                    <p className="text-sm text-muted-foreground">{description}</p>
+                  </div>
+                </div>
+                <Switch
+                  checked={soundPrefs[key] !== false}
+                  onCheckedChange={(checked) => setSoundPref(key, checked)}
+                />
+              </div>
+            ))}
+          </div>
+        </TabsContent>
+
+
+
         {/* Notifications Tab */}
         <TabsContent value="notifications" className="space-y-6">
           <div className="p-6 bg-card rounded-2xl border border-border space-y-4">
