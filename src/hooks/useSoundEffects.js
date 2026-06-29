@@ -4,6 +4,7 @@
  */
 import { useCallback, useRef } from "react";
 import { useSoundSettings } from "@/hooks/useSoundSettings";
+import { getSoundPreference } from "@/hooks/useSoundPreferences";
 // Fallback sound URLs
 const FALLBACK_SOUNDS = {
     correct: "https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3",
@@ -15,6 +16,8 @@ export function useSoundEffects() {
     const { data: soundSettings } = useSoundSettings();
     const audioRefs = useRef({});
     const getSoundUrl = useCallback((type) => {
+        // Respect the user's local mute preference first
+        if (!getSoundPreference(type)) return null;
         if (soundSettings) {
             const setting = soundSettings.find((s) => s.sound_key === type);
             if (setting) {
@@ -25,6 +28,7 @@ export function useSoundEffects() {
         }
         return FALLBACK_SOUNDS[type] || null;
     }, [soundSettings]);
+
     const playSound = useCallback((type) => {
         try {
             const url = getSoundUrl(type);
