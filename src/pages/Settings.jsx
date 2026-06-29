@@ -27,8 +27,10 @@ export default function Settings() {
     const { data: profile, isLoading } = useUserProfile();
     const updateProfile = useUpdateProfile();
     const { themeId, setThemeId } = useTheme();
+    const { prefs: soundPrefs, setPref: setSoundPref } = useSoundPreferences();
     const [displayName, setDisplayName] = useState("");
     const [selectedAvatar, setSelectedAvatar] = useState(null);
+
     const [avatarCategory, setAvatarCategory] = useState("all");
     const [initialized, setInitialized] = useState(false);
     const [notifications, setNotifications] = useState({
