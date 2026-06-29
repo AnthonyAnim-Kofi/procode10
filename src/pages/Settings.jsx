@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Check, User, Bell, Palette, Loader2 } from "lucide-react";
+import { ArrowLeft, Check, User, Bell, Palette, Loader2, Volume2, CheckCircle2, XCircle, Trophy, MousePointerClick } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,14 +12,25 @@ import { useTheme, THEMES } from "@/components/ThemeContext";
 import { ThemePreview } from "@/components/ThemePreview";
 import { AVATARS, AVATAR_CATEGORIES } from "@/data/avatars";
 import { useToast } from "@/hooks/use-toast";
+import { useSoundPreferences } from "@/hooks/useSoundPreferences";
+
+const SOUND_TOGGLES = [
+    { key: "correct", label: "Correct Answer", description: "Cheerful chime when you answer correctly", Icon: CheckCircle2 },
+    { key: "incorrect", label: "Wrong Answer", description: "Soft notice when you miss a question", Icon: XCircle },
+    { key: "complete", label: "Lesson Complete", description: "Celebration sound at the end of a lesson", Icon: Trophy },
+    { key: "click", label: "UI Click", description: "Subtle feedback for buttons and taps", Icon: MousePointerClick },
+];
+
 export default function Settings() {
     const navigate = useNavigate();
     const { toast } = useToast();
     const { data: profile, isLoading } = useUserProfile();
     const updateProfile = useUpdateProfile();
     const { themeId, setThemeId } = useTheme();
+    const { prefs: soundPrefs, setPref: setSoundPref } = useSoundPreferences();
     const [displayName, setDisplayName] = useState("");
     const [selectedAvatar, setSelectedAvatar] = useState(null);
+
     const [avatarCategory, setAvatarCategory] = useState("all");
     const [initialized, setInitialized] = useState(false);
     const [notifications, setNotifications] = useState({
@@ -97,7 +108,7 @@ export default function Settings() {
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 h-auto p-1 bg-muted rounded-xl">
+        <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-muted rounded-xl">
           <TabsTrigger value="profile" className="rounded-lg py-2 data-[state=active]:bg-background">
             <User className="w-4 h-4 mr-2"/>
             Profile
@@ -106,11 +117,16 @@ export default function Settings() {
             <Palette className="w-4 h-4 mr-2"/>
             Avatar
           </TabsTrigger>
+          <TabsTrigger value="sounds" className="rounded-lg py-2 data-[state=active]:bg-background">
+            <Volume2 className="w-4 h-4 mr-2"/>
+            Sounds
+          </TabsTrigger>
           <TabsTrigger value="notifications" className="rounded-lg py-2 data-[state=active]:bg-background">
             <Bell className="w-4 h-4 mr-2"/>
             Alerts
           </TabsTrigger>
         </TabsList>
+
 
         {/* Profile Tab */}
         <TabsContent value="profile" className="space-y-6">
@@ -199,6 +215,41 @@ export default function Settings() {
             </div>
           </div>
         </TabsContent>
+
+        {/* Sounds Tab */}
+        <TabsContent value="sounds" className="space-y-6">
+          <div className="p-6 bg-card rounded-2xl border border-border space-y-2">
+            <div className="pb-2 border-b border-border">
+              <p className="font-bold text-foreground">Sound Effects</p>
+              <p className="text-sm text-muted-foreground">Mute or enable individual sounds. Stored on this device.</p>
+            </div>
+            {SOUND_TOGGLES.map(({ key, label, description, Icon }, idx) => (
+              <div
+                key={key}
+                className={cn(
+                  "flex items-center justify-between py-3",
+                  idx > 0 && "border-t border-border"
+                )}
+              >
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 inline-flex items-center justify-center w-9 h-9 rounded-lg bg-primary/10 text-primary">
+                    <Icon className="w-4 h-4" />
+                  </span>
+                  <div>
+                    <p className="font-semibold text-foreground">{label}</p>
+                    <p className="text-sm text-muted-foreground">{description}</p>
+                  </div>
+                </div>
+                <Switch
+                  checked={soundPrefs[key] !== false}
+                  onCheckedChange={(checked) => setSoundPref(key, checked)}
+                />
+              </div>
+            ))}
+          </div>
+        </TabsContent>
+
+
 
         {/* Notifications Tab */}
         <TabsContent value="notifications" className="space-y-6">

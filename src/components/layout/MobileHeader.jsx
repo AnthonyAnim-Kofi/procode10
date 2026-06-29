@@ -157,12 +157,20 @@ export function MobileHeader() {
         }
         setDragX(null);
         const target = tabs[bestIdx];
+        const isNewTarget =
+            (target.path === "__more__") ||
+            (target.path !== location.pathname);
+        if (isIOS && isNewTarget) {
+            // Subtle haptic feedback — best-effort across iOS/Android
+            try { navigator.vibrate?.(8); } catch { /* no-op */ }
+        }
         if (target.path === "__more__") {
             window.dispatchEvent(new CustomEvent("open-mobile-more"));
         } else if (target.path !== location.pathname) {
             navigate(target.path);
         }
     };
+
 
 
     const pillLeft = dragX ?? pill.left;
@@ -196,10 +204,20 @@ export function MobileHeader() {
       {typeof document !== "undefined" &&
             createPortal(
               <div
-                className="fixed inset-x-0 bottom-0 z-50 lg:hidden pointer-events-none"
-                style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 12px)" }}
+                className="lg:hidden pointer-events-none"
+                style={{
+                    position: "fixed",
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 50,
+                    paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 12px)",
+                    transform: "translateZ(0)",
+                    willChange: "transform",
+                }}
                 aria-hidden={false}
               >
+
                 {/* Soft blur veil for the gap under the bar so attention isn't drawn there */}
                 <div
                   className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
