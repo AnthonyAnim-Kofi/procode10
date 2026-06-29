@@ -108,7 +108,7 @@ export default function Settings() {
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 h-auto p-1 bg-muted rounded-xl">
+        <TabsList className="grid w-full grid-cols-4 h-auto p-1 bg-muted rounded-xl">
           <TabsTrigger value="profile" className="rounded-lg py-2 data-[state=active]:bg-background">
             <User className="w-4 h-4 mr-2"/>
             Profile
@@ -117,11 +117,16 @@ export default function Settings() {
             <Palette className="w-4 h-4 mr-2"/>
             Avatar
           </TabsTrigger>
+          <TabsTrigger value="sounds" className="rounded-lg py-2 data-[state=active]:bg-background">
+            <Volume2 className="w-4 h-4 mr-2"/>
+            Sounds
+          </TabsTrigger>
           <TabsTrigger value="notifications" className="rounded-lg py-2 data-[state=active]:bg-background">
             <Bell className="w-4 h-4 mr-2"/>
             Alerts
           </TabsTrigger>
         </TabsList>
+
 
         {/* Profile Tab */}
         <TabsContent value="profile" className="space-y-6">
