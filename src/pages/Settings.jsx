@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Check, User, Bell, Palette, Loader2 } from "lucide-react";
+import { ArrowLeft, Check, User, Bell, Palette, Loader2, Volume2, CheckCircle2, XCircle, Trophy, MousePointerClick } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,6 +12,15 @@ import { useTheme, THEMES } from "@/components/ThemeContext";
 import { ThemePreview } from "@/components/ThemePreview";
 import { AVATARS, AVATAR_CATEGORIES } from "@/data/avatars";
 import { useToast } from "@/hooks/use-toast";
+import { useSoundPreferences } from "@/hooks/useSoundPreferences";
+
+const SOUND_TOGGLES = [
+    { key: "correct", label: "Correct Answer", description: "Cheerful chime when you answer correctly", Icon: CheckCircle2 },
+    { key: "incorrect", label: "Wrong Answer", description: "Soft notice when you miss a question", Icon: XCircle },
+    { key: "complete", label: "Lesson Complete", description: "Celebration sound at the end of a lesson", Icon: Trophy },
+    { key: "click", label: "UI Click", description: "Subtle feedback for buttons and taps", Icon: MousePointerClick },
+];
+
 export default function Settings() {
     const navigate = useNavigate();
     const { toast } = useToast();
