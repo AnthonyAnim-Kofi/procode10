@@ -68,12 +68,20 @@ export default function Login() {
 
                 <div className="flex-1 flex items-center justify-center p-6">
                     <div className="w-full max-w-sm">
-                        <h1 className="text-3xl font-bold text-foreground tracking-tight mb-2">
+                        <div className="lg:hidden flex justify-center mb-6">
+                            <img
+                                src="/apple-touch-icon.png"
+                                alt="CodeBear logo"
+                                className="w-20 h-20 rounded-2xl shadow-md"
+                            />
+                        </div>
+                        <h1 className="text-3xl font-bold text-foreground tracking-tight mb-2 lg:text-left text-center">
                             Sign in to your account
                         </h1>
-                        <p className="text-muted-foreground mb-8 text-sm">
+                        <p className="text-muted-foreground mb-8 text-sm lg:text-left text-center">
                             Continue your learning where you left off.
                         </p>
+
 
                         <form onSubmit={handleSubmit} className="space-y-5">
                             <div className="space-y-2">
