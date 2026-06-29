@@ -157,12 +157,20 @@ export function MobileHeader() {
         }
         setDragX(null);
         const target = tabs[bestIdx];
+        const isNewTarget =
+            (target.path === "__more__") ||
+            (target.path !== location.pathname);
+        if (isIOS && isNewTarget) {
+            // Subtle haptic feedback — best-effort across iOS/Android
+            try { navigator.vibrate?.(8); } catch { /* no-op */ }
+        }
         if (target.path === "__more__") {
             window.dispatchEvent(new CustomEvent("open-mobile-more"));
         } else if (target.path !== location.pathname) {
             navigate(target.path);
         }
     };
+
 
 
     const pillLeft = dragX ?? pill.left;
