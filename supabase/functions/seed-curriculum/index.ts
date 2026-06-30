@@ -88,7 +88,7 @@ Deno.serve(async (req) => {
     let q = supabase
       .from("lessons")
       .select(
-        "id, title, description, unit_id, units!inner(id, title, language_id, languages!inner(id, name, slug))"
+        "id, title, unit_id, units!inner(id, title, language_id, languages!inner(id, name, slug))"
       )
       .order("created_at", { ascending: true })
       .limit(batchSize * 4); // overfetch, filter empties below
@@ -113,7 +113,7 @@ Deno.serve(async (req) => {
       const lesson: LessonRow = {
         id: l.id,
         title: l.title,
-        description: l.description,
+        description: null,
         unit_id: l.unit_id,
         unit_title: l.units.title,
         language_name: l.units.languages.name,
