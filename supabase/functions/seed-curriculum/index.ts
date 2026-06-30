@@ -175,9 +175,16 @@ Deno.serve(async (req) => {
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
-  } catch (e) {
+  } catch (e: any) {
+    const msg =
+      e instanceof Error
+        ? e.message
+        : e && typeof e === "object"
+        ? e.message || e.error_description || e.hint || e.details || JSON.stringify(e)
+        : String(e);
+    console.error("seed-curriculum error:", msg, e);
     return new Response(
-      JSON.stringify({ error: e instanceof Error ? e.message : String(e) }),
+      JSON.stringify({ error: msg }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
