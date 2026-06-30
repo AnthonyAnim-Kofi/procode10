@@ -944,6 +944,7 @@ export default function Admin() {
           {/* Import Tab — JSON/CSV bulk import for lessons, questions, and unit notes */}
           <TabsContent value="import">
             <div className="w-full space-y-8">
+              <AutoSeeder />
               <BulkImport />
               <BulkImportNotes />
             </div>
