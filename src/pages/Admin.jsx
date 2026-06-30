@@ -17,6 +17,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useIsAdmin, useAdminUsers, useLanguages, useCreateLanguage, useUnits, useCreateUnit, useDeleteUnit, useLessons, useCreateLesson, useDeleteLesson, useQuestions, useCreateQuestion, useDeleteQuestion, useUnitNotes, useCreateUnitNote, useDeleteUnitNote, } from "@/hooks/useAdmin";
 import { BulkImport } from "@/components/admin/BulkImport";
 import { BulkImportNotes } from "@/components/admin/BulkImportNotes";
+import { AutoSeeder } from "@/components/admin/AutoSeeder";
 import { QuestManager } from "@/components/admin/QuestManager";
 import { LeagueThresholdsManager } from "@/components/admin/LeagueThresholdsManager";
 import { ShopManager } from "@/components/admin/ShopManager";
@@ -943,6 +944,7 @@ export default function Admin() {
           {/* Import Tab — JSON/CSV bulk import for lessons, questions, and unit notes */}
           <TabsContent value="import">
             <div className="w-full space-y-8">
+              <AutoSeeder />
               <BulkImport />
               <BulkImportNotes />
             </div>
