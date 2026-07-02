@@ -589,7 +589,7 @@ export default function Lesson() {
       </main>
 
       {/* Footer — hidden on desktop for code-runner */}
-      <footer className={cn("sticky bottom-0 border-t transition-colors", isChecked && isCorrect && "bg-primary/10 border-primary/30", isChecked && !isCorrect && "bg-destructive/10 border-destructive/30", !isChecked && "bg-background border-border", isCodeRunner && "lg:hidden")}>
+      <footer className={cn("sticky bottom-0 border-t transition-colors", isChecked && isCorrect && "bg-primary/10 border-primary/30", isChecked && !isCorrect && "bg-destructive/10 border-destructive/30", !isChecked && "bg-background border-border", isCodeRunner && "hidden")}>
         <div className="container mx-auto px-4 py-4 max-w-2xl">
           <div className="flex gap-3">
             {/* Back button - always visible except on first question */}
