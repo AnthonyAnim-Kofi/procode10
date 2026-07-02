@@ -5,6 +5,10 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useNotifications } from "./useNotifications";
 const REGEN_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes — full refill in ~25 minutes
 const MAX_HEARTS = 5;
+// Module-level guards so multiple mounted consumers (HeartTimer + HeartTimerPopover)
+// don't each trigger a regeneration + notification for the same tick.
+let _regenInFlight = false;
+let _lastNotifiedAt = 0;
 export function useHeartRegeneration(currentHearts, regenStartedAt) {
     const { user } = useAuth();
     const queryClient = useQueryClient();
