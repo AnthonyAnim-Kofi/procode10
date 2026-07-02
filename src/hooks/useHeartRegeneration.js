@@ -15,19 +15,18 @@ export function useHeartRegeneration(currentHearts, regenStartedAt) {
     const { notifyHeartRefilled } = useNotifications();
     const [timeUntilNextHeart, setTimeUntilNextHeart] = useState(null);
     const regenerateHeart = useCallback(async () => {
-        if (!user)
-            return;
+        if (!user) return;
+        if (_regenInFlight) return;
+        _regenInFlight = true;
         try {
             const { data: profile } = await supabase
                 .from("profiles")
                 .select("hearts, heart_regeneration_started_at")
                 .eq("user_id", user.id)
                 .single();
-            if (!profile)
-                return;
+            if (!profile) return;
             const hearts = profile.hearts ?? 0;
             if (hearts >= MAX_HEARTS) {
-                // Stop regeneration timer
                 await supabase
                     .from("profiles")
                     .update({ heart_regeneration_started_at: null })
@@ -35,20 +34,26 @@ export function useHeartRegeneration(currentHearts, regenStartedAt) {
                 setTimeUntilNextHeart(null);
                 return;
             }
-            // Add one heart
             const newHearts = Math.min(hearts + 1, MAX_HEARTS);
             await supabase
                 .from("profiles")
                 .update({
-                hearts: newHearts,
-                heart_regeneration_started_at: newHearts < MAX_HEARTS ? new Date().toISOString() : null,
-            })
+                    hearts: newHearts,
+                    heart_regeneration_started_at: newHearts < MAX_HEARTS ? new Date().toISOString() : null,
+                })
                 .eq("user_id", user.id);
             queryClient.invalidateQueries({ queryKey: ["profile", user.id] });
-            notifyHeartRefilled();
+            // Dedupe: only one notification per 30s window, no matter how many hook instances fire.
+            if (Date.now() - _lastNotifiedAt > 30_000) {
+                _lastNotifiedAt = Date.now();
+                notifyHeartRefilled();
+            }
         }
         catch (error) {
             console.error("Error regenerating heart:", error);
+        }
+        finally {
+            _regenInFlight = false;
         }
     }, [user, queryClient, notifyHeartRefilled]);
     useEffect(() => {
