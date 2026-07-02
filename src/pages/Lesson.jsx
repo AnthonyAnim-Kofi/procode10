@@ -283,20 +283,22 @@ export default function Lesson() {
     const handleCheck = async () => {
         if (selectedAnswer === null)
             return;
-        // Persist attempts immediately so users cannot retry by exiting before Continue/Finish.
+        // Prevent re-scoring when the user navigates back to a previously answered question.
+        if (answeredQuestions.has(currentQuestion))
+            return;
         markCurrentQuestionAnswered();
         let correct = false;
         if (question.type === "fill-blank") {
             correct = selectedAnswer === question.answer;
         }
         else if (question.type === "multiple-choice") {
-            // Handle both string index and number index
             const correctIdx = parseInt(question.answer || "0");
             correct = selectedAnswer === correctIdx || selectedAnswer === question.answer;
         }
         setIsCorrect(correct);
         setIsChecked(true);
         setMascotReaction(correct ? "correct" : "incorrect");
+        setAnswersByIndex((prev) => ({ ...prev, [currentQuestion]: { selectedAnswer, isCorrect: correct } }));
         if (correct) {
             const xpReward = question.xp_reward || 10;
             setXpEarned((prev) => prev + xpReward);
@@ -307,7 +309,6 @@ export default function Lesson() {
             }
         }
         else {
-            // Don't deduct hearts in practice or challenge mode
             if (!isPracticeMode && !isChallengeMode) {
                 deductHeart.mutate();
             }
@@ -315,11 +316,13 @@ export default function Lesson() {
         }
     };
     const handleDragOrderAnswer = useCallback((isCorrect) => {
+        if (answeredQuestions.has(currentQuestion)) return;
         markCurrentQuestionAnswered();
         setDragOrderChecked(true);
         setIsChecked(true);
         setIsCorrect(isCorrect);
         setMascotReaction(isCorrect ? "correct" : "incorrect");
+        setAnswersByIndex((prev) => ({ ...prev, [currentQuestion]: { isCorrect } }));
         if (isCorrect) {
             const xpReward = question.xp_reward || 15;
             setXpEarned((prev) => prev + xpReward);
@@ -330,19 +333,20 @@ export default function Lesson() {
             }
         }
         else {
-            // Don't deduct hearts in practice or challenge mode
             if (!isPracticeMode && !isChallengeMode) {
                 deductHeart.mutate();
             }
             playIncorrect();
         }
-    }, [question, playCorrect, playIncorrect, deductHeart, updateQuestProgress, isPracticeMode, isChallengeMode, markCurrentQuestionAnswered]);
+    }, [question, playCorrect, playIncorrect, deductHeart, updateQuestProgress, isPracticeMode, isChallengeMode, markCurrentQuestionAnswered, answeredQuestions, currentQuestion]);
     const handleCodeRunnerAnswer = useCallback((isCorrect) => {
+        if (answeredQuestions.has(currentQuestion)) return;
         markCurrentQuestionAnswered();
         setCodeRunnerChecked(true);
         setIsChecked(true);
         setIsCorrect(isCorrect);
         setMascotReaction(isCorrect ? "correct" : "incorrect");
+        setAnswersByIndex((prev) => ({ ...prev, [currentQuestion]: { isCorrect } }));
         if (isCorrect) {
             const xpReward = question.xp_reward || 20;
             setXpEarned((prev) => prev + xpReward);
@@ -353,13 +357,12 @@ export default function Lesson() {
             }
         }
         else {
-            // Don't deduct hearts in practice or challenge mode
             if (!isPracticeMode && !isChallengeMode) {
                 deductHeart.mutate();
             }
             playIncorrect();
         }
-    }, [question, playCorrect, playIncorrect, deductHeart, updateQuestProgress, isPracticeMode, isChallengeMode, markCurrentQuestionAnswered]);
+    }, [question, playCorrect, playIncorrect, deductHeart, updateQuestProgress, isPracticeMode, isChallengeMode, markCurrentQuestionAnswered, answeredQuestions, currentQuestion]);
     const handleContinue = async () => {
         // Mark current question as answered
         const newAnswered = new Set(answeredQuestions).add(currentQuestion);
