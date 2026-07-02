@@ -1037,7 +1037,7 @@ $note$, 0);
    'Complete bracket notation to access the "name" property:',
    'const person = { name: "Alice" };' || chr(10) || 'console.log(person[___]);',
    '"name"',
-   '[""name"", "name", "0", "person"]'::jsonb,
+   '["\"name\"", "name", "0", "person"]'::jsonb,
    'Bracket notation requires the key as a string in quotes: object["key"].',
    2, 15);
 

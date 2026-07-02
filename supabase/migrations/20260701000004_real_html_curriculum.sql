@@ -840,7 +840,7 @@ $note$, 0);
    'Complete the href to link to the section with id="contact" on the same page:',
    '<a href="___">Contact</a>',
    '"#contact"',
-   '[""#contact"", ""contact"", ""#"", ""/contact""]'::jsonb,
+   '["\"#contact\"", "\"contact\"", "\"#\"", "\"/contact\""]'::jsonb,
    'Anchor links use # followed by the element''s id to jump to a section on the same page.',
    2, 15);
 
@@ -1726,9 +1726,9 @@ $note$, 0);
   INSERT INTO public.questions (lesson_id, type, instruction, blocks, correct_order, options, hint, order_index, xp_reward) VALUES
   (v_lesson_id, 'drag-order',
    'Arrange the ARIA attributes for a live error message region:',
-   '[{"id":"1","code":"<div"},{"id":"2","code":"  role=\"alert\""},{"id":"3","code":"  aria-live=\"assertive\""},{"id":"4","code">"},{"id":"5","code":"  Password must be at least 8 characters."},{"id":"6","code":"</div>"}]'::jsonb,
+   '[{"id":"1","code":"<div"},{"id":"2","code":"  role=\"alert\""},{"id":"3","code":"  aria-live=\"assertive\""},{"id":"4","code":">"},{"id":"5","code":"  Password must be at least 8 characters."},{"id":"6","code":"</div>"}]'::jsonb,
    '["1","2","3","4","5","6"]'::jsonb,
-   '["<div","  role=\"alert\"","  aria-live=\"assertive\">","  Password must be at least 8 characters.","</div>"]'::jsonb,
+   '["<div","  role=\"alert\"","  aria-live=\"assertive\"",">","  Password must be at least 8 characters.","</div>"]'::jsonb,
    'Open div tag, add role="alert", then aria-live, close opening tag, content, close div.',
    4, 15);
 

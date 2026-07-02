@@ -152,6 +152,8 @@ export default function Lesson() {
     const [codeRunnerChecked, setCodeRunnerChecked] = useState(false);
     const [mascotReaction, setMascotReaction] = useState("idle");
     const [answeredQuestions, setAnsweredQuestions] = useState(new Set());
+    // Per-question snapshot of what the user picked so revisiting shows their answer without re-scoring.
+    const [answersByIndex, setAnswersByIndex] = useState({});
     const [initialized, setInitialized] = useState(false);
     // Restore saved progress on mount
     useEffect(() => {
@@ -281,20 +283,22 @@ export default function Lesson() {
     const handleCheck = async () => {
         if (selectedAnswer === null)
             return;
-        // Persist attempts immediately so users cannot retry by exiting before Continue/Finish.
+        // Prevent re-scoring when the user navigates back to a previously answered question.
+        if (answeredQuestions.has(currentQuestion))
+            return;
         markCurrentQuestionAnswered();
         let correct = false;
         if (question.type === "fill-blank") {
             correct = selectedAnswer === question.answer;
         }
         else if (question.type === "multiple-choice") {
-            // Handle both string index and number index
             const correctIdx = parseInt(question.answer || "0");
             correct = selectedAnswer === correctIdx || selectedAnswer === question.answer;
         }
         setIsCorrect(correct);
         setIsChecked(true);
         setMascotReaction(correct ? "correct" : "incorrect");
+        setAnswersByIndex((prev) => ({ ...prev, [currentQuestion]: { selectedAnswer, isCorrect: correct } }));
         if (correct) {
             const xpReward = question.xp_reward || 10;
             setXpEarned((prev) => prev + xpReward);
@@ -305,7 +309,6 @@ export default function Lesson() {
             }
         }
         else {
-            // Don't deduct hearts in practice or challenge mode
             if (!isPracticeMode && !isChallengeMode) {
                 deductHeart.mutate();
             }
@@ -313,11 +316,13 @@ export default function Lesson() {
         }
     };
     const handleDragOrderAnswer = useCallback((isCorrect) => {
+        if (answeredQuestions.has(currentQuestion)) return;
         markCurrentQuestionAnswered();
         setDragOrderChecked(true);
         setIsChecked(true);
         setIsCorrect(isCorrect);
         setMascotReaction(isCorrect ? "correct" : "incorrect");
+        setAnswersByIndex((prev) => ({ ...prev, [currentQuestion]: { isCorrect } }));
         if (isCorrect) {
             const xpReward = question.xp_reward || 15;
             setXpEarned((prev) => prev + xpReward);
@@ -328,19 +333,20 @@ export default function Lesson() {
             }
         }
         else {
-            // Don't deduct hearts in practice or challenge mode
             if (!isPracticeMode && !isChallengeMode) {
                 deductHeart.mutate();
             }
             playIncorrect();
         }
-    }, [question, playCorrect, playIncorrect, deductHeart, updateQuestProgress, isPracticeMode, isChallengeMode, markCurrentQuestionAnswered]);
+    }, [question, playCorrect, playIncorrect, deductHeart, updateQuestProgress, isPracticeMode, isChallengeMode, markCurrentQuestionAnswered, answeredQuestions, currentQuestion]);
     const handleCodeRunnerAnswer = useCallback((isCorrect) => {
+        if (answeredQuestions.has(currentQuestion)) return;
         markCurrentQuestionAnswered();
         setCodeRunnerChecked(true);
         setIsChecked(true);
         setIsCorrect(isCorrect);
         setMascotReaction(isCorrect ? "correct" : "incorrect");
+        setAnswersByIndex((prev) => ({ ...prev, [currentQuestion]: { isCorrect } }));
         if (isCorrect) {
             const xpReward = question.xp_reward || 20;
             setXpEarned((prev) => prev + xpReward);
@@ -351,13 +357,12 @@ export default function Lesson() {
             }
         }
         else {
-            // Don't deduct hearts in practice or challenge mode
             if (!isPracticeMode && !isChallengeMode) {
                 deductHeart.mutate();
             }
             playIncorrect();
         }
-    }, [question, playCorrect, playIncorrect, deductHeart, updateQuestProgress, isPracticeMode, isChallengeMode, markCurrentQuestionAnswered]);
+    }, [question, playCorrect, playIncorrect, deductHeart, updateQuestProgress, isPracticeMode, isChallengeMode, markCurrentQuestionAnswered, answeredQuestions, currentQuestion]);
     const handleContinue = async () => {
         // Mark current question as answered
         const newAnswered = new Set(answeredQuestions).add(currentQuestion);
@@ -406,22 +411,28 @@ export default function Lesson() {
         saveProgress();
     };
     const goToNextQuestion = () => {
-        setCurrentQuestion((prev) => prev + 1);
-        setSelectedAnswer(null);
-        setIsChecked(false);
-        setIsCorrect(false);
-        setDragOrderChecked(false);
-        setCodeRunnerChecked(false);
+        const nextIndex = currentQuestion + 1;
+        setCurrentQuestion(nextIndex);
+        const prior = answersByIndex[nextIndex];
+        const wasAnswered = answeredQuestions.has(nextIndex);
+        setSelectedAnswer(prior?.selectedAnswer ?? null);
+        setIsChecked(wasAnswered);
+        setIsCorrect(prior?.isCorrect ?? false);
+        setDragOrderChecked(wasAnswered);
+        setCodeRunnerChecked(wasAnswered);
         setMascotReaction("idle");
     };
     const goToPreviousQuestion = () => {
         if (currentQuestion > 0) {
-            setCurrentQuestion((prev) => prev - 1);
-            setSelectedAnswer(null);
-            setIsChecked(answeredQuestions.has(currentQuestion - 1));
-            setIsCorrect(false);
-            setDragOrderChecked(answeredQuestions.has(currentQuestion - 1));
-            setCodeRunnerChecked(answeredQuestions.has(currentQuestion - 1));
+            const prevIndex = currentQuestion - 1;
+            setCurrentQuestion(prevIndex);
+            const prior = answersByIndex[prevIndex];
+            const wasAnswered = answeredQuestions.has(prevIndex);
+            setSelectedAnswer(prior?.selectedAnswer ?? null);
+            setIsChecked(wasAnswered);
+            setIsCorrect(prior?.isCorrect ?? false);
+            setDragOrderChecked(wasAnswered);
+            setCodeRunnerChecked(wasAnswered);
             setMascotReaction("idle");
         }
     };
@@ -578,7 +589,7 @@ export default function Lesson() {
       </main>
 
       {/* Footer — hidden on desktop for code-runner */}
-      <footer className={cn("sticky bottom-0 border-t transition-colors", isChecked && isCorrect && "bg-primary/10 border-primary/30", isChecked && !isCorrect && "bg-destructive/10 border-destructive/30", !isChecked && "bg-background border-border", isCodeRunner && "lg:hidden")}>
+      <footer className={cn("sticky bottom-0 border-t transition-colors", isChecked && isCorrect && "bg-primary/10 border-primary/30", isChecked && !isCorrect && "bg-destructive/10 border-destructive/30", !isChecked && "bg-background border-border", isCodeRunner && "hidden")}>
         <div className="container mx-auto px-4 py-4 max-w-2xl">
           <div className="flex gap-3">
             {/* Back button - always visible except on first question */}

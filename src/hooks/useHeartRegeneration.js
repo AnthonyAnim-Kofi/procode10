@@ -5,25 +5,28 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useNotifications } from "./useNotifications";
 const REGEN_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes — full refill in ~25 minutes
 const MAX_HEARTS = 5;
+// Module-level guards so multiple mounted consumers (HeartTimer + HeartTimerPopover)
+// don't each trigger a regeneration + notification for the same tick.
+let _regenInFlight = false;
+let _lastNotifiedAt = 0;
 export function useHeartRegeneration(currentHearts, regenStartedAt) {
     const { user } = useAuth();
     const queryClient = useQueryClient();
     const { notifyHeartRefilled } = useNotifications();
     const [timeUntilNextHeart, setTimeUntilNextHeart] = useState(null);
     const regenerateHeart = useCallback(async () => {
-        if (!user)
-            return;
+        if (!user) return;
+        if (_regenInFlight) return;
+        _regenInFlight = true;
         try {
             const { data: profile } = await supabase
                 .from("profiles")
                 .select("hearts, heart_regeneration_started_at")
                 .eq("user_id", user.id)
                 .single();
-            if (!profile)
-                return;
+            if (!profile) return;
             const hearts = profile.hearts ?? 0;
             if (hearts >= MAX_HEARTS) {
-                // Stop regeneration timer
                 await supabase
                     .from("profiles")
                     .update({ heart_regeneration_started_at: null })
@@ -31,20 +34,26 @@ export function useHeartRegeneration(currentHearts, regenStartedAt) {
                 setTimeUntilNextHeart(null);
                 return;
             }
-            // Add one heart
             const newHearts = Math.min(hearts + 1, MAX_HEARTS);
             await supabase
                 .from("profiles")
                 .update({
-                hearts: newHearts,
-                heart_regeneration_started_at: newHearts < MAX_HEARTS ? new Date().toISOString() : null,
-            })
+                    hearts: newHearts,
+                    heart_regeneration_started_at: newHearts < MAX_HEARTS ? new Date().toISOString() : null,
+                })
                 .eq("user_id", user.id);
             queryClient.invalidateQueries({ queryKey: ["profile", user.id] });
-            notifyHeartRefilled();
+            // Dedupe: only one notification per 30s window, no matter how many hook instances fire.
+            if (Date.now() - _lastNotifiedAt > 30_000) {
+                _lastNotifiedAt = Date.now();
+                notifyHeartRefilled();
+            }
         }
         catch (error) {
             console.error("Error regenerating heart:", error);
+        }
+        finally {
+            _regenInFlight = false;
         }
     }, [user, queryClient, notifyHeartRefilled]);
     useEffect(() => {
