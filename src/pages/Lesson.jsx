@@ -411,22 +411,28 @@ export default function Lesson() {
         saveProgress();
     };
     const goToNextQuestion = () => {
-        setCurrentQuestion((prev) => prev + 1);
-        setSelectedAnswer(null);
-        setIsChecked(false);
-        setIsCorrect(false);
-        setDragOrderChecked(false);
-        setCodeRunnerChecked(false);
+        const nextIndex = currentQuestion + 1;
+        setCurrentQuestion(nextIndex);
+        const prior = answersByIndex[nextIndex];
+        const wasAnswered = answeredQuestions.has(nextIndex);
+        setSelectedAnswer(prior?.selectedAnswer ?? null);
+        setIsChecked(wasAnswered);
+        setIsCorrect(prior?.isCorrect ?? false);
+        setDragOrderChecked(wasAnswered);
+        setCodeRunnerChecked(wasAnswered);
         setMascotReaction("idle");
     };
     const goToPreviousQuestion = () => {
         if (currentQuestion > 0) {
-            setCurrentQuestion((prev) => prev - 1);
-            setSelectedAnswer(null);
-            setIsChecked(answeredQuestions.has(currentQuestion - 1));
-            setIsCorrect(false);
-            setDragOrderChecked(answeredQuestions.has(currentQuestion - 1));
-            setCodeRunnerChecked(answeredQuestions.has(currentQuestion - 1));
+            const prevIndex = currentQuestion - 1;
+            setCurrentQuestion(prevIndex);
+            const prior = answersByIndex[prevIndex];
+            const wasAnswered = answeredQuestions.has(prevIndex);
+            setSelectedAnswer(prior?.selectedAnswer ?? null);
+            setIsChecked(wasAnswered);
+            setIsCorrect(prior?.isCorrect ?? false);
+            setDragOrderChecked(wasAnswered);
+            setCodeRunnerChecked(wasAnswered);
             setMascotReaction("idle");
         }
     };
