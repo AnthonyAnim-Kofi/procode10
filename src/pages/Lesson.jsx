@@ -152,6 +152,8 @@ export default function Lesson() {
     const [codeRunnerChecked, setCodeRunnerChecked] = useState(false);
     const [mascotReaction, setMascotReaction] = useState("idle");
     const [answeredQuestions, setAnsweredQuestions] = useState(new Set());
+    // Per-question snapshot of what the user picked so revisiting shows their answer without re-scoring.
+    const [answersByIndex, setAnswersByIndex] = useState({});
     const [initialized, setInitialized] = useState(false);
     // Restore saved progress on mount
     useEffect(() => {
