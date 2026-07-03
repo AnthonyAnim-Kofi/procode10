@@ -135,6 +135,71 @@ export type Database = {
         }
         Relationships: []
       }
+      language_projects: {
+        Row: {
+          created_at: string
+          description: string | null
+          difficulty: string
+          estimated_minutes: number | null
+          id: string
+          image_url: string | null
+          instructions: string | null
+          is_active: boolean
+          language_id: string
+          order_index: number
+          resource_url: string | null
+          starter_code: string | null
+          title: string
+          updated_at: string
+          video_url: string | null
+          xp_reward: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          difficulty?: string
+          estimated_minutes?: number | null
+          id?: string
+          image_url?: string | null
+          instructions?: string | null
+          is_active?: boolean
+          language_id: string
+          order_index?: number
+          resource_url?: string | null
+          starter_code?: string | null
+          title: string
+          updated_at?: string
+          video_url?: string | null
+          xp_reward?: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          difficulty?: string
+          estimated_minutes?: number | null
+          id?: string
+          image_url?: string | null
+          instructions?: string | null
+          is_active?: boolean
+          language_id?: string
+          order_index?: number
+          resource_url?: string | null
+          starter_code?: string | null
+          title?: string
+          updated_at?: string
+          video_url?: string | null
+          xp_reward?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "language_projects_language_id_fkey"
+            columns: ["language_id"]
+            isOneToOne: false
+            referencedRelation: "languages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       languages: {
         Row: {
           created_at: string
@@ -963,6 +1028,50 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      user_project_completions: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          notes: string | null
+          project_id: string
+          status: string
+          submission_url: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          project_id: string
+          status?: string
+          submission_url?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          project_id?: string
+          status?: string
+          submission_url?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_project_completions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "language_projects"
+            referencedColumns: ["id"]
           },
         ]
       }
