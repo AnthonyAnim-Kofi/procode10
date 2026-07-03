@@ -33,6 +33,7 @@ import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
 import CodePlayground from "./pages/CodePlayground";
+import Projects from "./pages/Projects";
 const queryClient = new QueryClient();
 const App = () => {
     useDeviceNotifications();
@@ -83,6 +84,7 @@ const App = () => {
                   <Route path="/achievements" element={<Achievements />}/>
                   <Route path="/practice" element={<Practice />}/>
                   <Route path="/languages" element={<Languages />}/>
+                  <Route path="/projects" element={<Projects />}/>
                   <Route path="/league-history" element={<LeagueHistory />}/>
                 </Route>
 

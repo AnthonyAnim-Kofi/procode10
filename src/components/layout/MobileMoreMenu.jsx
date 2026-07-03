@@ -4,7 +4,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, } from "@/components/ui/sheet";
-import { MoreHorizontal, Users, Award, RotateCcw, Settings, Globe, LogOut, Gift, History, Terminal, } from "lucide-react";
+import { MoreHorizontal, Users, Award, RotateCcw, Settings, Globe, LogOut, Gift, History, Terminal, Rocket, } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ import { LogoutConfirmDialog } from "@/components/LogoutConfirmDialog";
 const moreItems = [
     { icon: Terminal, label: "Editor", path: "/playground" },
     { icon: Globe, label: "Languages", path: "/languages" },
+    { icon: Rocket, label: "Projects", path: "/projects" },
     { icon: Users, label: "Social", path: "/social" },
     { icon: Gift, label: "Referrals", path: "/referral" },
     { icon: Award, label: "Achievements", path: "/achievements" },
