@@ -5,7 +5,7 @@
  */
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Users, BookOpen, FileText, Target, Languages, Settings, LogOut, Loader2, Plus, Trash2, Upload, Trophy, ShoppingBag, Volume2, Gift, } from "lucide-react";
+import { Users, BookOpen, FileText, Target, Languages, Settings, LogOut, Loader2, Plus, Trash2, Upload, Trophy, ShoppingBag, Volume2, Gift, Rocket, } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,6 +23,7 @@ import { LeagueThresholdsManager } from "@/components/admin/LeagueThresholdsMana
 import { ShopManager } from "@/components/admin/ShopManager";
 import { SoundManager } from "@/components/admin/SoundManager";
 import { ChestManager } from "@/components/admin/ChestManager";
+import { ProjectsManager } from "@/components/admin/ProjectsManager";
 import { AdminEditDialog } from "@/components/admin/AdminEditDialog";
 import { LogoutConfirmDialog } from "@/components/LogoutConfirmDialog";
 import { LanguageIcon } from "@/components/LanguageIcon";
@@ -415,6 +416,10 @@ export default function Admin() {
             <TabsTrigger value="chests" className="text-slate-300 data-[state=active]:bg-amber-600 data-[state=active]:text-white">
               <Gift className="w-4 h-4 mr-2"/>
               <span className="whitespace-nowrap">Chests</span>
+            </TabsTrigger>
+            <TabsTrigger value="projects" className="text-slate-300 data-[state=active]:bg-amber-600 data-[state=active]:text-white">
+              <Rocket className="w-4 h-4 mr-2"/>
+              <span className="whitespace-nowrap">Projects</span>
             </TabsTrigger>
           </TabsList>
 
@@ -967,6 +972,9 @@ export default function Admin() {
           {/* Chests Tab */}
           <TabsContent value="chests">
             <ChestManager />
+          </TabsContent>
+          <TabsContent value="projects">
+            <ProjectsManager />
           </TabsContent>
         </Tabs>
       </main>
