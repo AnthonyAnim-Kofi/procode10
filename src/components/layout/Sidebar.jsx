@@ -4,7 +4,7 @@
  * Uses the shared LogoutConfirmDialog for logout confirmation.
  */
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Trophy, Target, ShoppingBag, User, Home, Code2, LogOut, Users, RotateCcw, Award, Settings, Globe, History, Gift, Terminal } from "lucide-react";
+import { Trophy, Target, ShoppingBag, User, Home, Code2, LogOut, Users, RotateCcw, Award, Settings, Globe, History, Gift, Terminal, Rocket } from "lucide-react";
 import { cn } from "@/lib/utils";
 import mascot from "@/assets/mascot.png";
 import { useAuth } from "@/contexts/AuthContext";
@@ -22,6 +22,7 @@ const navItems = [
 /** Secondary navigation items shown below the divider */
 const moreItems = [
     { icon: Globe, label: "Languages", path: "/languages" },
+    { icon: Rocket, label: "Projects", path: "/projects" },
     { icon: Users, label: "Social", path: "/social" },
     { icon: Gift, label: "Referrals", path: "/referral" },
     { icon: Award, label: "Achievements", path: "/achievements" },
