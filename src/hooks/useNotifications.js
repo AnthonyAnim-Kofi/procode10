@@ -50,34 +50,34 @@ export function useNotifications() {
             tag: "streak-reminder",
         });
     }, [sendNotification]);
-    const notifyChallengeAlert = useCallback((challengerName) => {
+    const notifyChallengeAlert = useCallback((challengerName, challengeId) => {
         sendNotification("New Challenge! ⚔️", {
             body: `${challengerName} has challenged you to a lesson battle!`,
-            tag: "challenge-alert",
+            tag: challengeId ? `challenge-alert-${challengeId}` : `challenge-alert-${Date.now()}`,
         });
     }, [sendNotification]);
-    const notifyChallengeWin = useCallback((opponentName) => {
+    const notifyChallengeWin = useCallback((opponentName, challengeId) => {
         sendNotification("You Won! 🏆", {
             body: `Congratulations! You beat ${opponentName} in the challenge!`,
-            tag: "challenge-result",
+            tag: challengeId ? `challenge-result-${challengeId}` : `challenge-result-${Date.now()}`,
         });
     }, [sendNotification]);
-    const notifyChallengeLoss = useCallback((opponentName) => {
+    const notifyChallengeLoss = useCallback((opponentName, challengeId) => {
         sendNotification("Challenge Complete 💪", {
             body: `${opponentName} beat you this time. Better luck next time!`,
-            tag: "challenge-result",
+            tag: challengeId ? `challenge-result-${challengeId}` : `challenge-result-${Date.now()}`,
         });
     }, [sendNotification]);
-    const notifyChallengeTie = useCallback((opponentName) => {
+    const notifyChallengeTie = useCallback((opponentName, challengeId) => {
         sendNotification("It's a Tie! 🤝", {
             body: `You and ${opponentName} finished with the same score!`,
-            tag: "challenge-result",
+            tag: challengeId ? `challenge-result-${challengeId}` : `challenge-result-${Date.now()}`,
         });
     }, [sendNotification]);
-    const notifyAchievementUnlock = useCallback((achievementName) => {
+    const notifyAchievementUnlock = useCallback((achievementName, achievementId) => {
         sendNotification("Achievement Unlocked! 🏆", {
             body: `Congratulations! You earned: ${achievementName}`,
-            tag: "achievement-unlock",
+            tag: achievementId ? `achievement-unlock-${achievementId}` : `achievement-unlock-${Date.now()}`,
         });
     }, [sendNotification]);
     const notifyHeartRefilled = useCallback(() => {

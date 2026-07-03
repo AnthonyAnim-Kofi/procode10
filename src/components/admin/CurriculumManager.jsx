@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageIcon } from "@/components/LanguageIcon";
+import { LanguageSelectItem } from "@/components/LanguageSelectItem";
 import { cn } from "@/lib/utils";
 
 import {
@@ -326,7 +327,7 @@ export function CurriculumManager() {
             <SelectContent>
               {languages.map((lang) => (
                 <SelectItem key={lang.id} value={lang.id}>
-                  {lang.icon} {lang.name}
+                  <LanguageSelectItem slug={lang.slug} icon={lang.icon} name={lang.name} />
                 </SelectItem>
               ))}
             </SelectContent>

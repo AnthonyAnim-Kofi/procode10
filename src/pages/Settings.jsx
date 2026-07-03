@@ -13,6 +13,7 @@ import { ThemePreview } from "@/components/ThemePreview";
 import { AVATARS, AVATAR_CATEGORIES } from "@/data/avatars";
 import { useToast } from "@/hooks/use-toast";
 import { useSoundPreferences } from "@/hooks/useSoundPreferences";
+import { useNotificationPreferences } from "@/hooks/useNotificationPreferences";
 
 const SOUND_TOGGLES = [
     { key: "correct", label: "Correct Answer", description: "Cheerful chime when you answer correctly", Icon: CheckCircle2 },
@@ -28,17 +29,12 @@ export default function Settings() {
     const updateProfile = useUpdateProfile();
     const { themeId, setThemeId } = useTheme();
     const { prefs: soundPrefs, setPref: setSoundPref } = useSoundPreferences();
+    const { prefs: notifications, setPref: setNotificationPref } = useNotificationPreferences();
     const [displayName, setDisplayName] = useState("");
     const [selectedAvatar, setSelectedAvatar] = useState(null);
 
     const [avatarCategory, setAvatarCategory] = useState("all");
     const [initialized, setInitialized] = useState(false);
-    const [notifications, setNotifications] = useState({
-        streakReminders: true,
-        challengeAlerts: true,
-        achievementAlerts: true,
-        weeklyReport: false,
-    });
     const [autoFreezeSaving, setAutoFreezeSaving] = useState(false);
     // Initialize form with profile data when it loads
     if (profile && !initialized) {
@@ -259,28 +255,28 @@ export default function Settings() {
                 <p className="font-semibold text-foreground">Streak Reminders</p>
                 <p className="text-sm text-muted-foreground">Get reminded to practice daily</p>
               </div>
-              <Switch checked={notifications.streakReminders} onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, streakReminders: checked }))}/>
+              <Switch checked={notifications.streakReminders} onCheckedChange={(checked) => setNotificationPref("streakReminders", checked)}/>
             </div>
             <div className="flex items-center justify-between py-3 border-t border-border">
               <div>
                 <p className="font-semibold text-foreground">Challenge Alerts</p>
                 <p className="text-sm text-muted-foreground">Notify when friends challenge you</p>
               </div>
-              <Switch checked={notifications.challengeAlerts} onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, challengeAlerts: checked }))}/>
+              <Switch checked={notifications.challengeAlerts} onCheckedChange={(checked) => setNotificationPref("challengeAlerts", checked)}/>
             </div>
             <div className="flex items-center justify-between py-3 border-t border-border">
               <div>
                 <p className="font-semibold text-foreground">Achievement Alerts</p>
                 <p className="text-sm text-muted-foreground">Celebrate when you earn badges</p>
               </div>
-              <Switch checked={notifications.achievementAlerts} onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, achievementAlerts: checked }))}/>
+              <Switch checked={notifications.achievementAlerts} onCheckedChange={(checked) => setNotificationPref("achievementAlerts", checked)}/>
             </div>
             <div className="flex items-center justify-between py-3 border-t border-border">
               <div>
                 <p className="font-semibold text-foreground">Weekly Report</p>
                 <p className="text-sm text-muted-foreground">Receive weekly progress summary</p>
               </div>
-              <Switch checked={notifications.weeklyReport} onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, weeklyReport: checked }))}/>
+              <Switch checked={notifications.weeklyReport} onCheckedChange={(checked) => setNotificationPref("weeklyReport", checked)}/>
             </div>
             <div className="flex items-center justify-between py-3 border-t border-border">
               <div>

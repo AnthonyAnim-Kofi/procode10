@@ -15,6 +15,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import mascot from "@/assets/mascot.png";
 import { SocialUserCard } from "@/components/SocialUserCard";
+import { LanguageSelectItem } from "@/components/LanguageSelectItem";
 
 export default function Social() {
     const { toast } = useToast();
@@ -360,13 +361,10 @@ export default function Social() {
                   <SelectTrigger className="w-full bg-card border-border rounded-xl">
                     <SelectValue placeholder="Select Language" />
                   </SelectTrigger>
-                  <SelectContent className="bg-popover border-border rounded-xl max-h-[300px]">
+                  <SelectContent className="bg-popover border-border rounded-xl">
                     {languages?.map(lang => (
                       <SelectItem key={lang.id} value={lang.id}>
-                        <span className="flex items-center gap-2">
-                          <span className="text-lg">{lang.icon || "💻"}</span>
-                          <span>{lang.name}</span>
-                        </span>
+                        <LanguageSelectItem slug={lang.slug} icon={lang.icon} name={lang.name} />
                       </SelectItem>
                     ))}
                   </SelectContent>

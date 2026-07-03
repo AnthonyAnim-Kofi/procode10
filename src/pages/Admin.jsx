@@ -27,6 +27,7 @@ import { ProjectsManager } from "@/components/admin/ProjectsManager";
 import { AdminEditDialog } from "@/components/admin/AdminEditDialog";
 import { LogoutConfirmDialog } from "@/components/LogoutConfirmDialog";
 import { LanguageIcon } from "@/components/LanguageIcon";
+import { LanguageSelectItem } from "@/components/LanguageSelectItem";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import { useUpdateLanguage, useUpdateUnit, useUpdateLesson, useUpdateQuestion, } from "@/hooks/useAdmin";
@@ -567,7 +568,7 @@ export default function Admin() {
                     </SelectTrigger>
                     <SelectContent>
                       {languages.map((lang) => (<SelectItem key={lang.id} value={lang.id}>
-                          {lang.icon} {lang.name}
+                          <LanguageSelectItem slug={lang.slug} icon={lang.icon} name={lang.name} />
                         </SelectItem>))}
                     </SelectContent>
                   </Select>
@@ -821,7 +822,7 @@ export default function Admin() {
                     </SelectTrigger>
                     <SelectContent>
                       {languages.map((lang) => (<SelectItem key={lang.id} value={lang.id}>
-                          {lang.icon} {lang.name}
+                          <LanguageSelectItem slug={lang.slug} icon={lang.icon} name={lang.name} />
                         </SelectItem>))}
                     </SelectContent>
                   </Select>

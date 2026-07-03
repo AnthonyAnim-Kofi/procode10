@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Trophy, Star, Flame, BookOpen, Users, Loader2, Target } from "lucide-react";
-import { useAchievements, useUserAchievements, useGlobalAchievementMonitor } from "@/hooks/useAchievements";
+import { useAchievements, useUserAchievements, useAchievementStats } from "@/hooks/useAchievements";
 import { Progress } from "@/components/ui/progress";
 import { AchievementCard } from "@/components/AchievementCard";
 import { AchievementCategory } from "@/components/AchievementCategory";
@@ -67,9 +67,8 @@ export default function Achievements() {
     // Hooks for fetching data
     const { data: achievements, isLoading: loadingAchievements } = useAchievements();
     const { data: userAchievements, isLoading: loadingUserAchievements } = useUserAchievements();
-    // Use the global monitor to get the unified stats object.
-    // The checking and awarding logic now runs behind the scenes inside MainLayout.
-    const stats = useGlobalAchievementMonitor();
+    // Stats for progress bars; awarding runs once in MainLayout.
+    const stats = useAchievementStats();
     // Memoize user's earned achievement IDs
     const earnedIds = useMemo(() => new Set(userAchievements?.map(ua => ua.achievement_id) || []), [userAchievements]);
     // Function to calculate progress for a given achievement

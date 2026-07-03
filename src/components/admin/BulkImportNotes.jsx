@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { LanguageSelectItem } from "@/components/LanguageSelectItem";
 import { useLanguages, useUnits } from "@/hooks/useAdmin";
 import { useQueryClient } from "@tanstack/react-query";
 import { parseImportPayload, runSequentialImport } from "@/lib/adminImport";
@@ -153,7 +154,7 @@ export function BulkImportNotes() {
                 <SelectContent>
                   {languages.map((lang) => (
                     <SelectItem key={lang.id} value={lang.id}>
-                      {lang.icon} {lang.name}
+                      <LanguageSelectItem slug={lang.slug} icon={lang.icon} name={lang.name} />
                     </SelectItem>
                   ))}
                 </SelectContent>

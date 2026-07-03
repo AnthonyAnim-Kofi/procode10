@@ -1,22 +1,33 @@
 import { useEffect, useRef } from "react";
 import { useUserProfile, useUpdateProfile } from "@/hooks/useUserProgress";
-import { useStreakReminder } from "@/hooks/useNotifications";
+import { useStreakReminder, useNotifications } from "@/hooks/useNotifications";
+import { useNotificationPreferences } from "@/hooks/useNotificationPreferences";
 import { useChallenges } from "@/hooks/useSocial";
-import { useNotifications } from "@/hooks/useNotifications";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+
+const WEEKLY_REPORT_KEY = "codebear:lastWeeklyReport";
 
 export function NotificationManager() {
     const { data: profile } = useUserProfile();
     const updateProfile = useUpdateProfile();
     const { data: challenges } = useChallenges();
-    const { notifyChallengeAlert, notifyChallengeWin, notifyChallengeLoss, notifyChallengeTie } = useNotifications();
+    const {
+        notifyChallengeAlert,
+        notifyChallengeWin,
+        notifyChallengeLoss,
+        notifyChallengeTie,
+        sendNotification,
+    } = useNotifications();
+    const { prefs: notificationPrefs } = useNotificationPreferences();
     const notifiedChallengesRef = useRef(new Set());
     const notifiedCompletedRef = useRef(new Set());
     const streakFreezeNoticeShownRef = useRef(false);
 
-    // Enable streak reminders if user has a profile
-    useStreakReminder(profile?.last_practice_date || null, !!profile);
+    useStreakReminder(
+        profile?.last_practice_date || null,
+        !!profile && notificationPrefs.streakReminders,
+    );
 
     // One-time login notice when auto streak freeze was used while away.
     useEffect(() => {
@@ -37,9 +48,27 @@ export function NotificationManager() {
         });
     }, [profile, updateProfile]);
 
+    // Weekly progress summary (at most once every 7 days)
+    useEffect(() => {
+        if (!profile || !notificationPrefs.weeklyReport)
+            return;
+        const lastSent = Number(localStorage.getItem(WEEKLY_REPORT_KEY) || 0);
+        const weekMs = 7 * 24 * 60 * 60 * 1000;
+        if (lastSent && Date.now() - lastSent < weekMs)
+            return;
+
+        const body = `XP: ${profile.xp || 0} · Streak: ${profile.streak_count || 0} days · Weekly XP: ${profile.weekly_xp || 0}`;
+        if (document.visibilityState === "hidden") {
+            sendNotification("Your Weekly Report 📊", { body, tag: "weekly-report" });
+        } else {
+            toast.info("Your Weekly Report 📊", { id: "weekly-report", description: body, duration: 8000 });
+        }
+        localStorage.setItem(WEEKLY_REPORT_KEY, String(Date.now()));
+    }, [profile, sendNotification, notificationPrefs.weeklyReport]);
+
     // Check for new (pending) challenges
     useEffect(() => {
-        if (!challenges || challenges.length === 0 || !profile)
+        if (!challenges || challenges.length === 0 || !profile || !notificationPrefs.challengeAlerts)
             return;
         const pendingChallenges = challenges.filter(
             (c) => c.status === "pending" && c.challenged_id === profile.user_id
@@ -58,16 +87,25 @@ export function NotificationManager() {
                     .single()
                     .then(({ data }) => {
                         const challengerName = data?.display_name || data?.username || "Someone";
-                        notifyChallengeAlert(challengerName);
+                        const toastId = `challenge-alert-${challenge.id}`;
+                        if (document.visibilityState === "hidden") {
+                            notifyChallengeAlert(challengerName, challenge.id);
+                        } else {
+                            toast.info("New Challenge! ⚔️", {
+                                id: toastId,
+                                description: `${challengerName} has challenged you to a lesson battle!`,
+                                duration: 6000,
+                            });
+                        }
                         notifiedChallengesRef.current.add(challenge.id);
                     });
             }
         }
-    }, [challenges, profile, notifyChallengeAlert]);
+    }, [challenges, profile, notifyChallengeAlert, notificationPrefs.challengeAlerts]);
 
     // Check for newly completed challenges and notify outcome
     useEffect(() => {
-        if (!challenges || challenges.length === 0 || !profile)
+        if (!challenges || challenges.length === 0 || !profile || !notificationPrefs.challengeAlerts)
             return;
 
         const completedChallenges = challenges.filter(
@@ -88,12 +126,10 @@ export function NotificationManager() {
             const opponentScore = isChallenger ? challenge.challenged_score : challenge.challenger_score;
             const opponentUserId = isChallenger ? challenge.challenged_id : challenge.challenger_id;
 
-            // Only notify about recently completed challenges (within last 30 mins)
             const completedAt = challenge.completed_at ? new Date(challenge.completed_at) : null;
             if (completedAt) {
                 const diffMinutes = (Date.now() - completedAt.getTime()) / (1000 * 60);
                 if (diffMinutes > 30) {
-                    // Mark as already handled so we don't re-process old challenges
                     notifiedCompletedRef.current.add(challenge.id);
                     continue;
                 }
@@ -106,17 +142,37 @@ export function NotificationManager() {
                 .single()
                 .then(({ data }) => {
                     const opponentName = data?.display_name || data?.username || "Your opponent";
-                    if (myScore > opponentScore) {
-                        notifyChallengeWin(opponentName);
-                    } else if (myScore < opponentScore) {
-                        notifyChallengeLoss(opponentName);
+                    const toastId = `challenge-result-${challenge.id}`;
+                    if (document.visibilityState === "hidden") {
+                        if (myScore > opponentScore) {
+                            notifyChallengeWin(opponentName, challenge.id);
+                        } else if (myScore < opponentScore) {
+                            notifyChallengeLoss(opponentName, challenge.id);
+                        } else {
+                            notifyChallengeTie(opponentName, challenge.id);
+                        }
                     } else {
-                        notifyChallengeTie(opponentName);
+                        if (myScore > opponentScore) {
+                            toast.success("You Won! 🏆", {
+                                id: toastId,
+                                description: `You beat ${opponentName} in the challenge!`,
+                            });
+                        } else if (myScore < opponentScore) {
+                            toast.info("Challenge Complete 💪", {
+                                id: toastId,
+                                description: `${opponentName} beat you this time. Better luck next time!`,
+                            });
+                        } else {
+                            toast.info("It's a Tie! 🤝", {
+                                id: toastId,
+                                description: `You and ${opponentName} finished with the same score!`,
+                            });
+                        }
                     }
                     notifiedCompletedRef.current.add(challenge.id);
                 });
         }
-    }, [challenges, profile, notifyChallengeWin, notifyChallengeLoss, notifyChallengeTie]);
+    }, [challenges, profile, notifyChallengeWin, notifyChallengeLoss, notifyChallengeTie, notificationPrefs.challengeAlerts]);
 
     return null;
 }

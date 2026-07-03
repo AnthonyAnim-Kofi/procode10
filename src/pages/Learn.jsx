@@ -12,6 +12,7 @@ import { useLanguages, useUnitsForLanguage, useLessonsForUnit } from "@/hooks/us
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { LanguageIcon } from "@/components/LanguageIcon";
+import { LanguageSelectItem } from "@/components/LanguageSelectItem";
 import { useTheme } from "@/components/ThemeContext";
 import { toast } from "sonner";
 import christmasBanner from "@/assets/christmas_banner.png";
@@ -97,14 +98,15 @@ export default function Learn() {
           </div>
           {languages.length > 1 && (<Select value={activeLanguage || undefined} onValueChange={handleLanguageChange}>
               <SelectTrigger className="w-full sm:w-[200px] shrink-0 bg-background">
-                <SelectValue placeholder="Select language"/>
+                <SelectValue placeholder="Select language">
+                  {currentLanguage ? (
+                    <LanguageSelectItem slug={currentLanguage.slug} icon={currentLanguage.icon} name={currentLanguage.name} />
+                  ) : null}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {languages.map((lang) => (<SelectItem key={lang.id} value={lang.id}>
-                    <span className="flex items-center gap-2">
-                      <LanguageIcon slug={lang.slug} icon={lang.icon} size={20}/>
-                      <span>{lang.name}</span>
-                    </span>
+                    <LanguageSelectItem slug={lang.slug} icon={lang.icon} name={lang.name} />
                   </SelectItem>))}
               </SelectContent>
             </Select>)}

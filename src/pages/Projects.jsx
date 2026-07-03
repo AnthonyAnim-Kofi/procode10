@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import { Loader2, Clock, Zap, CheckCircle2, ExternalLink, PlayCircle, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { LanguageSelectItem } from "@/components/LanguageSelectItem";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useLanguages } from "@/hooks/useLanguages";
 import { useLanguageProjects, useMyProjectCompletions, useUpsertProjectCompletion } from "@/hooks/useProjects";
@@ -50,6 +51,8 @@ export default function Projects() {
     return m;
   }, [completions]);
 
+  const currentLanguage = languages.find((l) => l.id === languageId);
+
   const setLanguage = (id) => {
     setSearchParams(id ? { language: id } : {});
   };
@@ -90,11 +93,17 @@ export default function Projects() {
       <div className="flex flex-wrap items-center gap-3">
         <Select value={languageId} onValueChange={setLanguage}>
           <SelectTrigger className="w-[220px]">
-            <SelectValue placeholder="Pick a language" />
+            <SelectValue placeholder="Pick a language">
+              {currentLanguage ? (
+                <LanguageSelectItem slug={currentLanguage.slug} icon={currentLanguage.icon} name={currentLanguage.name} />
+              ) : null}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {languages.map((l) => (
-              <SelectItem key={l.id} value={l.id}>{l.name}</SelectItem>
+              <SelectItem key={l.id} value={l.id}>
+                <LanguageSelectItem slug={l.slug} icon={l.icon} name={l.name} />
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>

@@ -2,6 +2,7 @@ import { useEffect, useCallback } from 'react';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { HOLIDAYS, getWesternEasterSunday } from '../components/ThemeContext';
 import { Capacitor } from '@capacitor/core';
+import { getNotificationPreference } from '@/hooks/useNotificationPreferences';
 
 /**
  * useDeviceNotifications - Hook to manage native device notifications via Capacitor.
@@ -77,18 +78,20 @@ export function useDeviceNotifications() {
         extra: { theme: 'theme-easter' },
       });
 
-      // 4. Add a daily streak reminder (8 PM every day)
-      notifications.push({
-        title: "Don't break your streak! 🔥",
-        body: "You're doing great! Keep the momentum going with one quick lesson.",
-        id: 9999,
-        schedule: {
-          allowWhileIdle: true,
-          repeats: true,
-          every: 'day',
-          on: { hour: 20, minute: 0 }
-        }
-      });
+      // 4. Daily streak reminder (8 PM) — only when user opted in
+      if (getNotificationPreference('streakReminders')) {
+        notifications.push({
+          title: "Don't break your streak! 🔥",
+          body: "You're doing great! Keep the momentum going with one quick lesson.",
+          id: 9999,
+          schedule: {
+            allowWhileIdle: true,
+            repeats: true,
+            every: 'day',
+            on: { hour: 20, minute: 0 }
+          }
+        });
+      }
 
       await LocalNotifications.schedule({ notifications });
       console.log("Registered native notifications for 2026 calendar.");

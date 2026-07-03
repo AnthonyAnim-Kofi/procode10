@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { LanguageSelectItem } from "@/components/LanguageSelectItem";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguages } from "@/hooks/useAdmin";
 import { supabase } from "@/integrations/supabase/client";
@@ -104,7 +105,9 @@ export function AutoSeeder() {
             <SelectContent>
               <SelectItem value="all">All languages</SelectItem>
               {languages.map((l) => (
-                <SelectItem key={l.id} value={l.slug}>{l.name}</SelectItem>
+                <SelectItem key={l.id} value={l.slug}>
+                  <LanguageSelectItem slug={l.slug} icon={l.icon} name={l.name} />
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>

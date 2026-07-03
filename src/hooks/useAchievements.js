@@ -1,8 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNotifications } from "@/hooks/useNotifications";
+import { getNotificationPreference } from "@/hooks/useNotificationPreferences";
 import { toast } from "sonner";
 import { useUserProfile, useLessonProgress } from "@/hooks/useUserProgress";
 import { useFollowing, useChallenges } from "@/hooks/useSocial";
@@ -102,15 +103,20 @@ export function useCheckAndAwardAchievements() {
                     user_id: user.id,
                     achievement_id: a.id,
                 })));
-                // Send both browser notification AND in-app toast for each achievement
-                for (const achievement of newAchievements) {
-                    // Browser push notification
-                    notifyAchievementUnlock(achievement.name);
-                    // In-app toast notification with achievement icon
-                    toast.success(`🏆 Achievement Unlocked!`, {
-                        description: `${achievement.name} - Head over to the Achievements page to see your rewards!`,
-                        duration: 6000,
-                    });
+                // Notify once per achievement (toast when visible, push when tab hidden)
+                if (getNotificationPreference("achievementAlerts")) {
+                    for (const achievement of newAchievements) {
+                        const toastId = `achievement-${achievement.id}`;
+                        if (document.visibilityState === "hidden") {
+                            notifyAchievementUnlock(achievement.name, achievement.id);
+                        } else {
+                            toast.success("🏆 Achievement Unlocked!", {
+                                id: toastId,
+                                description: `${achievement.name} — see your rewards on the Achievements page.`,
+                                duration: 6000,
+                            });
+                        }
+                    }
                 }
             }
             return newAchievements.length;
@@ -121,17 +127,14 @@ export function useCheckAndAwardAchievements() {
     });
 }
 /**
- * A global monitor that constantly checks if stats have crossed new milestones.
- * Should be placed in a top level authenticated component like MainLayout.
+ * Memoized user stats used for achievement progress display.
  */
-export function useGlobalAchievementMonitor() {
+export function useAchievementStats() {
     const { data: profile } = useUserProfile();
     const { data: lessonProgress } = useLessonProgress();
     const { data: following } = useFollowing();
     const { data: challenges } = useChallenges();
-    const checkAndAward = useCheckAndAwardAchievements();
-    // Memoize user stats to prevent recalculation on every render
-    const stats = useMemo(() => ({
+    return useMemo(() => ({
         lessonsCompleted: lessonProgress?.filter(p => p.completed).length || 0,
         streak: profile?.streak_count || 0,
         xp: profile?.xp || 0,
@@ -140,12 +143,28 @@ export function useGlobalAchievementMonitor() {
         perfectLessons: lessonProgress?.filter(p => p.accuracy === 100).length || 0,
         league: profile?.league || "bronze",
     }), [lessonProgress, profile, following, challenges]);
+}
+
+/**
+ * A global monitor that constantly checks if stats have crossed new milestones.
+ * Should be placed in a top level authenticated component like MainLayout.
+ */
+export function useGlobalAchievementMonitor() {
+    const { data: profile } = useUserProfile();
+    const { data: lessonProgress } = useLessonProgress();
+    const stats = useAchievementStats();
+    const checkAndAward = useCheckAndAwardAchievements();
+    const lastStatsKeyRef = useRef("");
+
     useEffect(() => {
-        // Only check if we have data initialized
         if (!profile || lessonProgress === undefined || checkAndAward.isPending)
             return;
-        // Check and trigger notifications if they just earned anything
+        const statsKey = JSON.stringify(stats);
+        if (statsKey === lastStatsKeyRef.current)
+            return;
+        lastStatsKeyRef.current = statsKey;
         checkAndAward.mutate(stats);
-    }, [profile?.id, lessonProgress, checkAndAward, stats]);
+    }, [profile, lessonProgress, stats, checkAndAward.isPending, checkAndAward.mutate]);
+
     return stats;
 }
