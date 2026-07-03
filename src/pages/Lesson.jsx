@@ -560,7 +560,7 @@ export default function Lesson() {
               <pre className="text-sidebar-foreground whitespace-pre-wrap">
                 {question.code?.split("___").map((part, i, arr) => (<span key={i}>
                     {part}
-                    {i < arr.length - 1 && (<span className="px-3 py-1 bg-sidebar-accent rounded-lg text-primary border-2 border-dashed border-primary/50">
+                    {i < arr.length - 1 && (<span className="px-3 py-1 min-w-[4rem] inline-block text-center bg-background text-foreground font-bold rounded-lg border-2 border-dashed border-primary">
                         {selectedAnswer || "____"}
                       </span>)}
                   </span>))}

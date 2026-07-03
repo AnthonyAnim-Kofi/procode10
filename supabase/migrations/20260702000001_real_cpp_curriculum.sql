@@ -14,10 +14,16 @@ DECLARE
   v_lesson_id uuid;
 BEGIN
 
-  SELECT id INTO v_lang_id FROM public.languages WHERE slug = 'c++';
+  -- Prefer slug 'cpp' (used by the app); fall back to legacy 'c++' row if present.
+  SELECT id INTO v_lang_id
+  FROM public.languages
+  WHERE slug IN ('cpp', 'c++')
+  ORDER BY CASE WHEN slug = 'cpp' THEN 0 ELSE 1 END
+  LIMIT 1;
+
   IF v_lang_id IS NULL THEN
     INSERT INTO public.languages (name, slug, icon, description)
-    VALUES ('C++', 'c++', '⚙️', 'A powerful, fast, systems-level programming language')
+    VALUES ('C++', 'cpp', '⚙️', 'A powerful, fast, systems-level programming language')
     RETURNING id INTO v_lang_id;
   END IF;
 
