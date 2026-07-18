@@ -98,7 +98,7 @@ export default function Onboarding() {
         <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary shadow-lg shadow-primary/30">
           <Code2 className="w-6 h-6 text-primary-foreground"/>
         </div>
-        <span className="text-xl font-extrabold text-foreground">CodeBear</span>
+        <span className="text-xl font-extrabold text-foreground">ProCode</span>
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center p-4 relative z-10">
@@ -113,7 +113,7 @@ export default function Onboarding() {
         {/* ── STEP 1: Name & Avatar ── */}
         {step === 1 && (<div className="w-full max-w-md animate-fade-in">
             <div className="text-center mb-6">
-              <img src={mascot} alt="CodeBear" className="w-20 h-20 mx-auto mb-4 animate-bounce-gentle"/>
+              <img src={mascot} alt="ProCode" className="w-20 h-20 mx-auto mb-4 animate-bounce-gentle"/>
               <h1 className="text-3xl font-extrabold text-foreground mb-2">Who are you?</h1>
               <p className="text-muted-foreground">Set your display name and pick an avatar</p>
             </div>
@@ -204,7 +204,7 @@ export default function Onboarding() {
 
         {/* ── STEP 4: Welcome ── */}
         {step === 4 && (<div className="w-full max-w-md animate-fade-in text-center">
-            {selectedAvatar ? (<img src={selectedAvatar} alt="Your avatar" className="w-24 h-24 mx-auto mb-6 rounded-full border-4 border-primary"/>) : (<img src={mascot} alt="CodeBear" className="w-24 h-24 mx-auto mb-6 animate-bounce-gentle"/>)}
+            {selectedAvatar ? (<img src={selectedAvatar} alt="Your avatar" className="w-24 h-24 mx-auto mb-6 rounded-full border-4 border-primary"/>) : (<img src={mascot} alt="ProCode" className="w-24 h-24 mx-auto mb-6 animate-bounce-gentle"/>)}
             <h1 className="text-3xl font-extrabold text-foreground mb-2">You're all set, {displayName}! 🎉</h1>
             <p className="text-muted-foreground mb-8">
               You'll learn <span className="font-bold text-foreground">{selectedLang?.name}</span> for{" "}

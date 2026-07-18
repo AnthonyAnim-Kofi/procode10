@@ -434,7 +434,7 @@ export function CodeRunnerChallenge({
           <div className="px-4 sm:px-0 space-y-4 animate-fade-in">
             <div className="flex items-start gap-3">
               <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20 flex-shrink-0">
-                <img src={mascotImage} alt="CodeBear" className="w-full h-full object-cover" />
+                <img src={mascotImage} alt="ProCode" className="w-full h-full object-cover" />
               </div>
               <div className="relative flex-1 bg-card border-2 border-border rounded-2xl rounded-tl-sm p-4">
                 <p className="text-sm text-foreground leading-relaxed">

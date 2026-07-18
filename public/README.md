@@ -1,6 +1,6 @@
-# CodeBear - Vanilla JS Version
+# ProCode - Vanilla JS Version
 
-This is a vanilla JavaScript, HTML, CSS, and Tailwind CSS version of the CodeBear learning application.
+This is a vanilla JavaScript, HTML, CSS, and Tailwind CSS version of the ProCode learning application.
 
 ## 🚀 Quick Start
 
@@ -52,7 +52,7 @@ public/
 ├── learn.html          # Main learning dashboard (protected)
 ├── config.js           # Supabase configuration
 ├── auth.js             # Authentication manager
-├── mascot.png          # CodeBear mascot image (copy from src/assets/)
+├── mascot.png          # ProCode mascot image (copy from src/assets/)
 └── hero-bg.png         # Hero background image (copy from src/assets/)
 ```
 
@@ -89,7 +89,7 @@ The Tailwind config in each HTML file defines the color scheme. Key colors:
 ### Images
 
 Replace these placeholder images with your actual assets:
-- `mascot.png` - The CodeBear mascot
+- `mascot.png` - The ProCode mascot
 - `hero-bg.png` - Hero section background
 
 ## 🐛 Troubleshooting
@@ -121,4 +121,4 @@ The original React application files are still in the `src/` directory if you ne
 
 ## 📄 License
 
-© 2026 CodeBear. All rights reserved.
+© 2026 ProCode. All rights reserved.

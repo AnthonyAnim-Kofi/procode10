@@ -46,7 +46,7 @@ export function Sidebar() {
         <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-sidebar-primary">
           <Code2 className="w-6 h-6 text-sidebar-primary-foreground"/>
         </div>
-        <span className="text-xl font-extrabold text-sidebar-foreground">CodeBear</span>
+        <span className="text-xl font-extrabold text-sidebar-foreground">ProCode</span>
       </Link>
 
       {/* Navigation Links – Scrollable */}
@@ -85,7 +85,7 @@ export function Sidebar() {
       {/* Mascot Encouragement */}
       <div className="px-4 py-6 border-t border-sidebar-border shrink-0">
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-sidebar-accent">
-          <img src={mascot} alt="CodeBear mascot" className="w-12 h-12 object-contain"/>
+          <img src={mascot} alt="ProCode mascot" className="w-12 h-12 object-contain"/>
           <div>
             <p className="text-sm font-bold text-sidebar-foreground">Keep going!</p>
             <p className="text-xs text-sidebar-foreground/70">5 day streak 🔥</p>

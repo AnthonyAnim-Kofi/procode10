@@ -54,7 +54,7 @@ export default function Landing() {
                             <div className="flex items-center justify-center w-9 h-9 rounded-md bg-primary">
                                 <Code2 className="w-5 h-5 text-primary-foreground" />
                             </div>
-                            <span className="text-lg font-bold text-foreground tracking-tight">CodeBear</span>
+                            <span className="text-lg font-bold text-foreground tracking-tight">ProCode</span>
                         </Link>
 
                         <div className="flex items-center gap-2 sm:gap-3">
@@ -82,7 +82,7 @@ export default function Landing() {
                                 <span className="text-gradient-primary">depth</span>.
                             </h1>
                             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                                CodeBear is a focused learning environment for university students,
+                                ProCode is a focused learning environment for university students,
                                 career-changers, and working developers. Structured lessons, rigorous
                                 practice, and an integrated playground — without the noise.
                             </p>
@@ -118,7 +118,7 @@ export default function Landing() {
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto text-center mb-10">
                         <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4 tracking-tight">
-                            See CodeBear in motion
+                            See ProCode in motion
                         </h2>
                         <p className="text-muted-foreground text-lg">
                             A short walkthrough of what learning on the platform actually looks like.
@@ -233,10 +233,10 @@ export default function Landing() {
                             <div className="flex items-center justify-center w-8 h-8 rounded-md bg-sidebar-primary">
                                 <Code2 className="w-4 h-4 text-sidebar-primary-foreground" />
                             </div>
-                            <span className="font-semibold text-sidebar-foreground">CodeBear</span>
+                            <span className="font-semibold text-sidebar-foreground">ProCode</span>
                         </div>
                         <p className="text-sm text-sidebar-foreground/70">
-                            © 2026 CodeBear. A focused environment for learning to code.
+                            © 2026 ProCode. A focused environment for learning to code.
                         </p>
                     </div>
                 </div>

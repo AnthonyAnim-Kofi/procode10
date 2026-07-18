@@ -43,14 +43,14 @@ export default function Login() {
                         <div className="flex items-center justify-center w-9 h-9 rounded-md bg-primary-foreground/15 backdrop-blur">
                             <Code2 className="w-5 h-5" />
                         </div>
-                        <span className="text-lg font-bold tracking-tight">CodeBear</span>
+                        <span className="text-lg font-bold tracking-tight">ProCode</span>
                     </Link>
                     <blockquote className="max-w-md">
                         <p className="text-xl font-medium leading-snug mb-3 tracking-tight">
                             "Clarity over cleverness. A quiet desk and the right problem — that's where
                             real learning happens."
                         </p>
-                        <footer className="text-sm text-primary-foreground/80">— CodeBear</footer>
+                        <footer className="text-sm text-primary-foreground/80">— ProCode</footer>
                     </blockquote>
                 </div>
             </aside>
@@ -62,7 +62,7 @@ export default function Login() {
                         <div className="flex items-center justify-center w-9 h-9 rounded-md bg-primary">
                             <Code2 className="w-5 h-5 text-primary-foreground" />
                         </div>
-                        <span className="text-lg font-bold text-foreground tracking-tight">CodeBear</span>
+                        <span className="text-lg font-bold text-foreground tracking-tight">ProCode</span>
                     </Link>
                 </header>
 
@@ -71,7 +71,7 @@ export default function Login() {
                         <div className="lg:hidden flex justify-center mb-6">
                             <img
                                 src="/apple-touch-icon.png"
-                                alt="CodeBear logo"
+                                alt="ProCode logo"
                                 className="w-20 h-20 rounded-2xl shadow-md"
                             />
                         </div>
