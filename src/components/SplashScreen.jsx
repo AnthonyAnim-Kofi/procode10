@@ -39,7 +39,7 @@ export function SplashScreen() {
   return (
     <div
       role="status"
-      aria-label="Loading CodeBear"
+      aria-label="Loading ProCode"
       className={`fixed inset-0 z-[9999] flex items-center justify-center bg-background transition-opacity duration-500 ${
         leaving ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
@@ -59,7 +59,7 @@ export function SplashScreen() {
         {/* Wordmark */}
         <div className="overflow-hidden">
           <h1 className="text-3xl font-bold tracking-tight text-foreground splash-rise">
-            CodeBear
+            ProCode
           </h1>
         </div>
 

@@ -111,7 +111,7 @@ export default function Shop() {
             <Infinity className="w-8 h-8 text-premium-foreground"/>
           </div>
           <div>
-            <h2 className="text-xl font-extrabold text-premium-foreground mb-1">CodeBear Pro</h2>
+            <h2 className="text-xl font-extrabold text-premium-foreground mb-1">ProCode Pro</h2>
             <p className="text-premium-foreground/80">Learn without limits. Cancel anytime.</p>
           </div>
         </div>

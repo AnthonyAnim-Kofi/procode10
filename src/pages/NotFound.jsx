@@ -10,7 +10,7 @@ const NotFound = () => {
     }, [location.pathname]);
     return (<div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="text-center max-w-md">
-        <img src={mascot} alt="Lost CodeBear" className="w-40 h-40 mx-auto mb-6 animate-bounce-gentle opacity-80"/>
+        <img src={mascot} alt="Lost ProCode" className="w-40 h-40 mx-auto mb-6 animate-bounce-gentle opacity-80"/>
         <h1 className="text-6xl font-extrabold text-foreground mb-4">404</h1>
         <p className="text-xl text-muted-foreground mb-8">
           Oops! This page flew away. Let's get you back on track.

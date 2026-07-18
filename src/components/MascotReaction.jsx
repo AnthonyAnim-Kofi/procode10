@@ -18,7 +18,7 @@ export function MascotReaction({ reaction, message }) {
     const displayMessage = getMessage();
     return (<div className="flex items-center gap-4">
       <div className={cn("relative w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20 transition-all duration-300", reaction === "correct" && "animate-bounce-gentle", reaction === "incorrect" && "animate-wiggle", reaction === "celebrate" && "animate-float")}>
-        <img src={mascotImage} alt="CodeBear mascot" className={cn("w-full h-full object-cover transition-transform duration-300", reaction === "correct" && "scale-110", reaction === "incorrect" && "opacity-80", reaction === "celebrate" && "scale-125")}/>
+        <img src={mascotImage} alt="ProCode mascot" className={cn("w-full h-full object-cover transition-transform duration-300", reaction === "correct" && "scale-110", reaction === "incorrect" && "opacity-80", reaction === "celebrate" && "scale-125")}/>
         
         {/* Reaction overlay effects */}
         {reaction === "correct" && (<div className="absolute inset-0 bg-primary/20 animate-pulse-gentle"/>)}

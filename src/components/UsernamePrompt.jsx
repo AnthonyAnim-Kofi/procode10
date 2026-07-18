@@ -51,9 +51,9 @@ export function UsernamePrompt() {
       <DialogContent className="sm:max-w-md" onPointerDownOutside={(e) => e.preventDefault()}>
         <DialogHeader>
           <div className="flex justify-center mb-4">
-            <img src={mascot} alt="CodeBear" className="w-20 h-20 animate-bounce-gentle"/>
+            <img src={mascot} alt="ProCode" className="w-20 h-20 animate-bounce-gentle"/>
           </div>
-          <DialogTitle className="text-center text-xl">Welcome to CodeBear!</DialogTitle>
+          <DialogTitle className="text-center text-xl">Welcome to ProCode!</DialogTitle>
           <DialogDescription className="text-center">
             Set your username to personalize your learning experience and appear on leaderboards.
           </DialogDescription>

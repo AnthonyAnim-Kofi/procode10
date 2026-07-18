@@ -58,8 +58,8 @@ export default function Referral() {
         if (referralLink && navigator.share) {
             navigator.
                 share({
-                title: "Join me on CodeBear",
-                text: "Learn to code with me on CodeBear! Use my link to sign up and we both get 50 gems.",
+                title: "Join me on ProCode",
+                text: "Learn to code with me on ProCode! Use my link to sign up and we both get 50 gems.",
                 url: referralLink
             }).
                 then(() => toast({ title: "Shared!" })).

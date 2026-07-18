@@ -39,7 +39,7 @@ export function useDeviceNotifications() {
         'theme-newyear': { title: "Happy New Year! 🎆", body: "New year, new coding goals. Start 2026 strong!" },
         'theme-lunar': { title: "Happy Lunar New Year! 🏮", body: "Wishing you prosperity and bug-free code!" },
         'theme-independence': { title: "Happy Independence Day! 🇺🇸", body: "Celebrate liberty with a free practice session!" },
-        'theme-anniversary': { title: "CodeBear Anniversary! 🎉", body: "We're 1 year old! Come join the celebration." },
+        'theme-anniversary': { title: "ProCode Anniversary! 🎉", body: "We're 1 year old! Come join the celebration." },
         'theme-diwali': { title: "Happy Diwali! 🪔", body: "May your code be as bright as the festival of lights!" },
         'theme-ramadan': { title: "Ramadan Kareem! 🌙", body: "Wishing you a peaceful and productive month." },
         'theme-autumn': { title: "Happy Thanksgiving! 🍂", body: "We're thankful for learners like you. Keep it up!" },

@@ -1,8 +1,8 @@
-# CodeBear Site Documentation (User Side)
+# ProCode Site Documentation (User Side)
 
 ## 1) Overview
 
-CodeBear is a gamified coding-learning web app built with React + Vite and powered by Supabase (Auth, Postgres, RLS, realtime, Edge Functions).  
+ProCode is a gamified coding-learning web app built with React + Vite and powered by Supabase (Auth, Postgres, RLS, realtime, Edge Functions).  
 This document covers the complete **user-facing** site behavior and technical design, and **excludes admin-side features**.
 
 ### Core user goals
