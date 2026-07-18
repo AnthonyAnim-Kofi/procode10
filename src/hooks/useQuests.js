@@ -177,7 +177,10 @@ export function useInitializeQuestProgress() {
             }
             if (profile) {
                 const streakQuests = quests.filter(
-                    (q) => q.quest_type === "maintain_streak" || q.quest_type === "streak",
+                    (q) =>
+                        q.quest_type === "maintain_streak" ||
+                        q.quest_type === "streak" ||
+                        q.quest_type === "streak_days",
                 );
                 for (const quest of streakQuests) {
                     const questDate = quest.is_weekly ? weekStart : today;
